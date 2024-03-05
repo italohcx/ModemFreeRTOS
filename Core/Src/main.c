@@ -93,10 +93,21 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
+  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, RESET);
+  HAL_Delay(50);
+  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, RESET);
+  HAL_Delay(50);
+  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, RESET);
+  HAL_Delay(50);
+  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, SET);
+  HAL_Delay(50);
+  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
+  HAL_Delay(50);
+  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+
   /*Initialize lib from winbond memory */
   IniciarFileSystem();
 
-  TestarFileSystem();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
