@@ -1,3 +1,4 @@
+"./Core/Src/file_system.o"
 "./Core/Src/freertos.o"
 "./Core/Src/gpio.o"
 "./Core/Src/main.o"
@@ -39,6 +40,8 @@
 "./Middlewares/Third_Party/FreeRTOS/Source/timers.o"
 "./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o"
 "./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o"
+"./Middlewares/Third_Party/LittleFs/lfs.o"
+"./Middlewares/Third_Party/LittleFs/lfs_util.o"
 "./Middlewares/Third_Party/LwIP/src/api/api_lib.o"
 "./Middlewares/Third_Party/LwIP/src/api/api_msg.o"
 "./Middlewares/Third_Party/LwIP/src/api/err.o"
