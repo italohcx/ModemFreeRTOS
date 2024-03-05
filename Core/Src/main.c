@@ -92,6 +92,9 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
+
+  /*Initialize lib from winbond memory */
+  W25qxx_Init();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
