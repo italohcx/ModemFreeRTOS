@@ -85,7 +85,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/system/arch/sys_arch.h \
  ../LWIP/Target/ethernetif.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
- ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/gpio.h
+ ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/gpio.h \
+ ../Core/Inc/AdaptadorFileSystem.h ../Core/Inc/file_system.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -176,3 +181,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/spi.h:
 ../Core/Inc/main.h:
 ../Core/Inc/gpio.h:
+../Core/Inc/AdaptadorFileSystem.h:
+../Core/Inc/file_system.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:

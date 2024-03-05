@@ -1,5 +1,5 @@
-Core/Src/file_system.o: ../Core/Src/file_system.c \
- ../Core/Inc/file_system.h \
+Core/Src/AdaptadorFileSystem.o: ../Core/Src/AdaptadorFileSystem.c \
+ ../Core/Inc/AdaptadorFileSystem.h ../Core/Inc/file_system.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
@@ -33,6 +33,7 @@ Core/Src/file_system.o: ../Core/Src/file_system.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+../Core/Inc/AdaptadorFileSystem.h:
 ../Core/Inc/file_system.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:

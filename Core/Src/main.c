@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "AdaptadorFileSystem.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,7 +94,9 @@ int main(void)
 
 
   /*Initialize lib from winbond memory */
-  W25qxx_Init();
+  IniciarFileSystem();
+
+  TestarFileSystem();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

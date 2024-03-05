@@ -1,3 +1,4 @@
+"./Core/Src/AdaptadorFileSystem.o"
 "./Core/Src/file_system.o"
 "./Core/Src/freertos.o"
 "./Core/Src/gpio.o"
@@ -123,4 +124,4 @@
 "./Middlewares/Third_Party/LwIP/src/netif/ppp/utils.o"
 "./Middlewares/Third_Party/LwIP/src/netif/ppp/vj.o"
 "./Middlewares/Third_Party/LwIP/system/OS/sys_arch.o"
-"./Middlewares/w25Qxx/w25qxx.o"
+"./Middlewares/Third_Party/w25Qxx/w25qxx.o"

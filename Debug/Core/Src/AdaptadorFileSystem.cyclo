@@ -1,0 +1,12 @@
+../Core/Src/AdaptadorFileSystem.c:55:6:IniciarFileSystem	2
+../Core/Src/AdaptadorFileSystem.c:86:5:EncerrarFileSystem	1
+../Core/Src/AdaptadorFileSystem.c:96:6:TestarFileSystem	1
+../Core/Src/AdaptadorFileSystem.c:158:6:LerArquivos	9
+../Core/Src/AdaptadorFileSystem.c:266:5:ArquivoExiste	2
+../Core/Src/AdaptadorFileSystem.c:283:6:LimparPasta	11
+../Core/Src/AdaptadorFileSystem.c:345:6:apagarArquivos	10
+../Core/Src/AdaptadorFileSystem.c:420:6:CriarArquivos	3
+../Core/Src/AdaptadorFileSystem.c:449:5:CriarArquivo1	7
+../Core/Src/AdaptadorFileSystem.c:517:5:CriarArquivo	10
+../Core/Src/AdaptadorFileSystem.c:626:9:ListaDeArquivos	8
+../Core/Src/AdaptadorFileSystem.c:675:6:LerArquivo	6
