@@ -113,6 +113,8 @@ int main(void)
 
   /*Initialize lib from winbond memory */
   FileSystemInit();
+  ModbusServerInit();
+
 
   /* USER CODE END 2 */
 
