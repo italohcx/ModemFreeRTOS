@@ -1,0 +1,7 @@
+../Middlewares/Third_Party/Modbus/modbus.c:15:10:CalculaCRCByte	3
+../Middlewares/Third_Party/Modbus/modbus.c:28:10:CalculaCRCStream	2
+../Middlewares/Third_Party/Modbus/modbus.c:36:9:ReadCoilRegister	2
+../Middlewares/Third_Party/Modbus/modbus.c:58:9:ReadInputRegister	2
+../Middlewares/Third_Party/Modbus/modbus.c:80:9:ReadHoldingRegister	2
+../Middlewares/Third_Party/Modbus/modbus.c:102:9:PresetSingleRegister	1
+../Middlewares/Third_Party/Modbus/modbus.c:115:9:PresetMultipleRegisters	2

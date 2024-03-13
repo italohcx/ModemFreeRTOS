@@ -23,11 +23,14 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -45,7 +48,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../LWIP/App/lwip.h \
+ ../Core/Inc/i2c.h ../Core/Inc/main.h ../LWIP/App/lwip.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h \
@@ -85,12 +88,14 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/system/arch/sys_arch.h \
  ../LWIP/Target/ethernetif.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
- ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/gpio.h \
- ../Core/Inc/AdaptadorFileSystem.h ../Core/Inc/file_system.h \
+ ../Core/Inc/spi.h ../Core/Inc/usart.h ../Core/Inc/gpio.h \
+ ../Core/Inc/FileSystemAPI.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h
+ ../Core/Inc/lfs_w25qflash.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h \
+ ../Core/Inc/lfs_w25qflash.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -116,11 +121,14 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
@@ -138,6 +146,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
+../Core/Inc/i2c.h:
+../Core/Inc/main.h:
 ../LWIP/App/lwip.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
 ../LWIP/Target/lwipopts.h:
@@ -179,11 +189,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../LWIP/Target/ethernetif.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h:
 ../Core/Inc/spi.h:
-../Core/Inc/main.h:
+../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
-../Core/Inc/AdaptadorFileSystem.h:
-../Core/Inc/file_system.h:
+../Core/Inc/FileSystemAPI.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+../Core/Inc/lfs_w25qflash.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:
+../Core/Inc/lfs_w25qflash.h:

@@ -72,7 +72,6 @@ extern "C"
 
 	} w25qxx_t;
 
-	extern w25qxx_t w25qxx;
 
 	//############################################################################
 	// in Page,Sector and block read/write functions, can put 0 to read maximum bytes

@@ -25,7 +25,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+/* ------------------------ lwIP includes --------------------------------- */
+#include "api.h"
+#include "sockets.h"
+#include "stdbool.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,12 +52,14 @@
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 
+
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
+void ModbusTcpSeverTask(void const * argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -103,8 +108,9 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 1024);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 2048);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -131,6 +137,15 @@ void StartDefaultTask(void const * argument)
   }
   /* USER CODE END StartDefaultTask */
 }
+
+/* USER CODE BEGIN Header_TcpSeverTask */
+/**
+* @brief Function implementing the tcpServerTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_TcpSeverTask */
+
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
