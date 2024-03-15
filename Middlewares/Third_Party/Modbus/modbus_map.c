@@ -7,7 +7,7 @@
 
 #include "modbus_map.h"
 #include "modbus.h"
-
+#include "FileSystemAPI.h"
 MB modbus;
 
 uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
@@ -204,6 +204,26 @@ uint8_t SeparaMensagensMODBUS(uint8_t *bufMsg, int tamanho)
 
 	return tamMsg;
 }
+
+
+
+// Função para ler o array do arquivo
+size_t Modbus_file_read(void *ptr, lfs_size_t size, size_t count, FILE_POINTER file) {
+    // Implemente a leitura do arquivo e armazene os dados no buffer apontado por 'ptr'
+}
+
+
+// Função para escrever o array no arquivo
+size_t Modubus_file_write(const void *ptr, lfs_size_t size, size_t count, FILE_POINTER file) {
+
+
+
+
+}
+
+
+
+
 
 void LoadHoldingRegisterRAM(void)
 {

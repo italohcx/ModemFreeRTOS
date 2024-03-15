@@ -3,7 +3,9 @@
 ../Middlewares/Third_Party/Modbus/modbus_map.c:145:10:GetAddrInputRegister	2
 ../Middlewares/Third_Party/Modbus/modbus_map.c:158:10:GetAddrHoldingRegister	2
 ../Middlewares/Third_Party/Modbus/modbus_map.c:174:9:SeparaMensagensMODBUS	8
-../Middlewares/Third_Party/Modbus/modbus_map.c:208:6:LoadHoldingRegisterRAM	2
-../Middlewares/Third_Party/Modbus/modbus_map.c:218:6:LoadInputRegisterRAM	2
-../Middlewares/Third_Party/Modbus/modbus_map.c:229:6:LoadCoilRegisterRAM	2
-../Middlewares/Third_Party/Modbus/modbus_map.c:240:6:LoadEspelhoRAM	2
+../Middlewares/Third_Party/Modbus/modbus_map.c:211:8:Modbus_file_read	1
+../Middlewares/Third_Party/Modbus/modbus_map.c:217:8:Modubus_file_write	1
+../Middlewares/Third_Party/Modbus/modbus_map.c:228:6:LoadHoldingRegisterRAM	2
+../Middlewares/Third_Party/Modbus/modbus_map.c:238:6:LoadInputRegisterRAM	2
+../Middlewares/Third_Party/Modbus/modbus_map.c:249:6:LoadCoilRegisterRAM	2
+../Middlewares/Third_Party/Modbus/modbus_map.c:260:6:LoadEspelhoRAM	2

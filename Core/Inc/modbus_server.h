@@ -20,16 +20,14 @@ enum
 };
 
 
-
-
-
-uint16_t netconn_rcv_req(void *connec, uint8_t *alloc_rq, void **nbuffer, uint8_t flag);
-void ModbusServerTaskFunc(void *pvParameters);
-
 /**
  * @fn void FTPServerInit()
  * @brief init FTP server
  */
 void ModbusServerInit();
+
+void ModbusServerTaskFunc(void *pvParameters);
+
+
 
 #endif /* INC_MODBUS_SERVER_H_ */

@@ -14,15 +14,20 @@
 #include "lfs_w25qflash.h"
 
 
-#define FILE_POINTER lfs_file_t*
-#define FILE_TYPE lfs_file_t
+#define FILE_POINTER           lfs_file_t*
+#define FILE_TYPE              lfs_file_t
+#define DIRECTORY_POINTER      lfs_dir_t*
+#define DIRECTORY_TYPE         lfs_dir_t
+#define FILESYSTEM_FOLDER_MAP           "map"
+#define FILESYSTEM_FOLDER_CONFIG        "cfg"
 
-#define DIRECTORY_POINTER lfs_dir_t*
-#define DIRECTORY_TYPE lfs_dir_t
+#define MAX_OPEN_FILES           (4)
 
-#define FILESYSTEM_FOLDER_MAP         "map"
 
-#define MAX_OPEN_FILES 4
+extern int lfs_mounted;
+extern lfs_t lfs;
+extern struct lfs_config cfg;
+
 
 
 /**

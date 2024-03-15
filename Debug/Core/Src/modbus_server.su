@@ -1,4 +1,4 @@
-../Core/Src/modbus_server.c:23:16:ModbusHandleConnection	576	static
-../Core/Src/modbus_server.c:116:6:ModbusTcpSeverTask	304	static
-../Core/Src/modbus_server.c:219:10:netconn_rcv_req	48	static
-../Core/Src/modbus_server.c:268:6:ModbusServerInit	48	static
+../Core/Src/modbus_server.c:26:16:ModbusHandleConnection	576	static
+../Core/Src/modbus_server.c:73:6:Modbus_activateTcpKeepAlive	40	static
+../Core/Src/modbus_server.c:109:6:ModbusTcpSeverTask	32	static
+../Core/Src/modbus_server.c:191:6:ModbusServerInit	48	static

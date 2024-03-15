@@ -1,4 +1,5 @@
 "./Core/Src/FileSystemAPI.o"
+"./Core/Src/cfg_files.o"
 "./Core/Src/file_system.o"
 "./Core/Src/freertos.o"
 "./Core/Src/gpio.o"

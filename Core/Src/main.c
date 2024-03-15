@@ -29,6 +29,7 @@
 /* USER CODE BEGIN Includes */
 #include "FileSystemAPI.h"
 #include "lfs_w25qflash.h"
+#include "modbus_server.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,11 +111,8 @@ int main(void)
   HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
 
 
-
-  /*Initialize lib from winbond memory */
   FileSystemInit();
   ModbusServerInit();
-
 
   /* USER CODE END 2 */
 

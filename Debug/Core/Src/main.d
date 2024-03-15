@@ -95,7 +95,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
  ../Core/Inc/lfs_w25qflash.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h \
- ../Core/Inc/lfs_w25qflash.h
+ ../Core/Inc/lfs_w25qflash.h ../Core/Inc/modbus_server.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/api.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/netbuf.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -198,3 +203,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/lfs_w25qflash.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:
 ../Core/Inc/lfs_w25qflash.h:
+../Core/Inc/modbus_server.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/api.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/netbuf.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h:
