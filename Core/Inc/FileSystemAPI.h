@@ -1,12 +1,7 @@
 /*
  * @file FileSystemAPI.h
  *
- * @brief API para acesso ao sistema de arquivos
  *
- * Copyright (c) 2022 Lupa Tecnologia e Sistemas Ltda. All rights reserved.
- *
- *  Created on: 5 de out de 2022
- *      Author: Flávio Flores Villaça
  */
 
 #include "lfs.h"

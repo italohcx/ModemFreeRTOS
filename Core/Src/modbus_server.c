@@ -5,13 +5,14 @@
  *      Author: italo
  */
 
-
+#include <stdio.h>
 #include "modbus_server.h"
 #include "cmsis_os.h"
 #include "modbus_map.h"
 #include "lwip/sockets.h"
 #include "lwip/tcp.h"
-
+#include "lwip/tcpip.h"
+#include "AdapterDisplay.h"
 
 #define MODBUS_SERVER_TASK_STACK_SIZE  (1024)
 #define MODBUS_SERVER_TCP_PORT         (22000)
@@ -78,12 +79,12 @@ void Modbus_activateTcpKeepAlive(struct netconn *connfd, int idleTime, int inter
     }
     struct tcp_pcb *pcb = connfd->pcb.tcp;
 
-
+    LOCK_TCPIP_CORE();
     ip_set_option(connfd->pcb.ip, SO_KEEPALIVE);
     pcb->keep_idle = idleTime * 1000;    // Tempo de ociosidade em milissegundos
     pcb->keep_intvl = interval * 1000;   // Intervalo entre as tentativas em milissegundos
     pcb->keep_cnt = count;               // Número de tentativas
-
+    UNLOCK_TCPIP_CORE();
 }
 
 void ModbusTcpSeverTask(void const *argument)
@@ -91,7 +92,7 @@ void ModbusTcpSeverTask(void const *argument)
 	/* USER CODE BEGIN TcpSeverTask */
 	struct netconn *conn, *newconn;
 	uint8_t i = MODBUS_CLOSED;
-
+	MenuData_t menu_data;
 
 	/* Create a new TCP connection handle. */
 	conn = netconn_new(NETCONN_TCP);
@@ -103,7 +104,6 @@ void ModbusTcpSeverTask(void const *argument)
 		printf("Failed to create TCP connection handle\r\n");
 		return;
 	}
-
 
 	/* Bind the connection to the specified port. */
 	if (netconn_bind(conn, IP_ADDR_ANY, MODBUS_SERVER_TCP_PORT) != ERR_OK)
@@ -124,6 +124,9 @@ void ModbusTcpSeverTask(void const *argument)
 	}
 
 	printf("TCP server listening on port %d \r\n", MODBUS_SERVER_TCP_PORT);
+	snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info), "CFG:DC Port:%d",
+			MODBUS_SERVER_TCP_PORT);
+	SendDataToMenuQueueUpdate(&menu_data);
 
 	/* Infinite loop */
 	for (;;)
@@ -134,13 +137,17 @@ void ModbusTcpSeverTask(void const *argument)
 			{
 				if (newconn != NULL)
 				{
-					printf("Valid pointer \r\n");
 					i = MODBUS_OPEN;
+
+					snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info),
+							"CFG:CN Port:%d", MODBUS_SERVER_TCP_PORT);
+					SendDataToMenuQueueUpdate(&menu_data);
 
 					/* Set keepalive options if enabled */
 					if (MODBUS_SERVER_KEEP_ALIVE)
 					{
-						Modbus_activateTcpKeepAlive(newconn, keepidle, keepintvl, keepcnt);
+						Modbus_activateTcpKeepAlive(newconn, keepidle,
+								keepintvl, keepcnt);
 					}
 				}
 			}
@@ -152,6 +159,9 @@ void ModbusTcpSeverTask(void const *argument)
 				i = MODBUS_CLOSED;
 				netconn_close(newconn);
 				netconn_delete(newconn);
+				snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info),
+						"CFG:DC Port:%d", MODBUS_SERVER_TCP_PORT);
+				SendDataToMenuQueueUpdate(&menu_data);
 				printf("Connection closed \r\n");
 			}
 		}
@@ -163,14 +173,10 @@ void ModbusTcpSeverTask(void const *argument)
 
 
 
-
-
 void ModbusServerInit()
 {
 	/* definition and creation of tcpServerTask */
-	LoadHoldingRegisterRAM();
-	LoadInputRegisterRAM();
-	LoadEspelhoRAM();
+	LoadMapFromFile();
 	osThreadDef(tcpServerTask, ModbusTcpSeverTask, osPriorityBelowNormal, 0, MODBUS_SERVER_TASK_STACK_SIZE);
 	modbusTcpServerTaskHandle = osThreadCreate(osThread(tcpServerTask), NULL);
 }

@@ -1,3 +1,4 @@
+"./Core/Src/AdapterDisplay.o"
 "./Core/Src/FileSystemAPI.o"
 "./Core/Src/cfg_files.o"
 "./Core/Src/file_system.o"
@@ -134,4 +135,7 @@
 "./Middlewares/Third_Party/LwIP/system/OS/sys_arch.o"
 "./Middlewares/Third_Party/Modbus/modbus.o"
 "./Middlewares/Third_Party/Modbus/modbus_map.o"
+"./Middlewares/Third_Party/ssd1306/ssd1306.o"
+"./Middlewares/Third_Party/ssd1306/ssd1306_fonts.o"
+"./Middlewares/Third_Party/ssd1306/ssd1306_tests.o"
 "./Middlewares/Third_Party/w25Qxx/w25qxx.o"

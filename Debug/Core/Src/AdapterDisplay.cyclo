@@ -1,0 +1,6 @@
+../Core/Src/AdapterDisplay.c:27:6:AdapterDisplaySSD1306Init	1
+../Core/Src/AdapterDisplay.c:45:6:WriteMenuToSSD1306	1
+../Core/Src/AdapterDisplay.c:60:6:WriteLinetoSSD1306	1
+../Core/Src/AdapterDisplay.c:70:6:UpdateSSD1306Task	2
+../Core/Src/AdapterDisplay.c:85:6:SendDataToMenuQueueUpdate	2
+../Core/Src/AdapterDisplay.c:94:6:AdapterDisplayInitUpdateTask	1

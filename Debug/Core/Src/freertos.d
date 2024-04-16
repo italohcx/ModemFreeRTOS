@@ -74,7 +74,11 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_priv.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/priv/mem_priv.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h \
+ ../Core/Inc/AdapterDisplay.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -152,3 +156,7 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/priv/mem_priv.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h:
+../Core/Inc/AdapterDisplay.h:

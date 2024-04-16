@@ -76,7 +76,23 @@ Core/Src/modbus_server.o: ../Core/Src/modbus_server.c \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/priv/mem_priv.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/tcp.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpbase.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/ip.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/ip4.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip4.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/icmp.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/icmp.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h \
+ ../Core/Inc/AdapterDisplay.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h
 ../Core/Inc/modbus_server.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/api.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
@@ -155,4 +171,20 @@ Core/Src/modbus_server.o: ../Core/Src/modbus_server.c \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/priv/mem_priv.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/tcp.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/tcpbase.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/ip.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/ip4.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip4.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/icmp.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/prot/icmp.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h:
+../Core/Inc/AdapterDisplay.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h:

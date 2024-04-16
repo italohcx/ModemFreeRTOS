@@ -90,17 +90,24 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
  ../Core/Inc/spi.h ../Core/Inc/usart.h ../Core/Inc/gpio.h \
  ../Core/Inc/FileSystemAPI.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
  ../Core/Inc/lfs_w25qflash.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h \
  ../Core/Inc/lfs_w25qflash.h ../Core/Inc/modbus_server.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/api.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/netbuf.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h \
+ ../Core/Inc/cfg_files.h ../Core/Inc/FileSystemAPI.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_tests.h \
+ ../Core/Inc/AdapterDisplay.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -197,11 +204,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
 ../Core/Inc/FileSystemAPI.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
 ../Core/Inc/lfs_w25qflash.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:
 ../Core/Inc/lfs_w25qflash.h:
 ../Core/Inc/modbus_server.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/api.h:
@@ -209,3 +216,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h:
+../Core/Inc/cfg_files.h:
+../Core/Inc/FileSystemAPI.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_tests.h:
+../Core/Inc/AdapterDisplay.h:

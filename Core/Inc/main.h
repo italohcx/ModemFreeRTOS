@@ -59,6 +59,12 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define SPI2_FLASH_CS_Pin GPIO_PIN_3
 #define SPI2_FLASH_CS_GPIO_Port GPIOE
+#define SPI1_DC_Pin GPIO_PIN_0
+#define SPI1_DC_GPIO_Port GPIOA
+#define SPI1_RESET_Pin GPIO_PIN_3
+#define SPI1_RESET_GPIO_Port GPIOA
+#define SPI1_CS_Pin GPIO_PIN_4
+#define SPI1_CS_GPIO_Port GPIOA
 #define SPI2_NRF_CS_Pin GPIO_PIN_8
 #define SPI2_NRF_CS_GPIO_Port GPIOE
 #define LED1_Pin GPIO_PIN_13

@@ -13,18 +13,18 @@
 #include <stdbool.h>
 #include "cmsis_os.h"
 #include "FileSystemAPI.h"
+#include "modbus_map.h"
 
 #define CFG_DIR_PATH       FILESYSTEM_FOLDER_CONFIG"/"
+#define TOTAL_CFG_FILES    (2)
 
-typedef enum
-{
-  CfgFiles_success                       =  0, /**<@brief everything was ok*/
-  CfgFiles_error_badPointer              = -1, /**<@brief bad pointer error*/
-  CfgFiles_error_unknownError            = -2, /**<@brief unknown error*/
-  CfgFiles_error_noCallbackFound         = -3, /**<@brief If we are looking for a callback and found not similar */
-  CfgFiles_error_semaphoreInitialization = -4, /**<@brief Get timeout while was waiting initialized */
-  CfgFiles_error_invalidParameter        = -5, /**<@brief Parameter is invalid */
-  CfgFiles_error_transferFailed          = -6, /**<@brief  Transfer failed */
+typedef enum {
+    CfgFiles_success = 0,
+    CfgFiles_error_badPointer = -1,
+    CfgFiles_error_invalidParameter = -2,
+    CfgFiles_error_fileOpenFailed = -3,
+    CfgFiles_error_fileOperationFailed = -4,
+	CfgFiles_error_unknownError = -5
 } cfg_file_status_t;
 
 /// Enum for file index definition into configuration file control structure
@@ -34,18 +34,6 @@ typedef enum CfgFileIndex
   COMM_FILE_IDX,
 
 } TCfgFileIndex;
-
-/// Control struct for configuration file management
-typedef struct _CFG_FILE
-{
-  char name[MAX_SIZE_FILE_NAME];
-  uint32_t size;
-  char localDirPath[MAX_SIZE_DIR_PATH];
-  void *file;
-}TCfgFile;
-
-
-
 
 
 

@@ -29,6 +29,8 @@
 #include "api.h"
 #include "sockets.h"
 #include "stdbool.h"
+#include "ssd1306.h"
+#include "AdapterDisplay.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,17 +51,19 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 
+extern struct netif gnetif;
 /* USER CODE END Variables */
-osThreadId defaultTaskHandle;
-
+osThreadId ethernetStatusTHandle;
+osThreadId tcpServerTaskHandle;
+osMessageQId menuQueueHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const * argument);
-void ModbusTcpSeverTask(void const * argument);
+void EthernetStatusTask(void const * argument);
+void TcpSeverTask(void const * argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -102,15 +106,23 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* Create the queue(s) */
+  /* definition and creation of menuQueue */
+  osMessageQDef(menuQueue, 128, MenuData_t);
+  menuQueueHandle = osMessageCreate(osMessageQ(menuQueue), NULL);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 2048);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* definition and creation of ethernetStatusT */
+  osThreadDef(ethernetStatusT, EthernetStatusTask, osPriorityNormal, 0, 1024);
+  ethernetStatusTHandle = osThreadCreate(osThread(ethernetStatusT), NULL);
 
+  /* definition and creation of tcpServerTask */
+  osThreadDef(tcpServerTask, TcpSeverTask, osPriorityIdle, 0, 1024);
+  tcpServerTaskHandle = osThreadCreate(osThread(tcpServerTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -118,24 +130,48 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_StartDefaultTask */
+/* USER CODE BEGIN Header_EthernetStatusTask */
 /**
-  * @brief  Function implementing the defaultTask thread.
+  * @brief  Function implementing the ethernetStatusT thread.
   * @param  argument: Not used
   * @retval None
-  */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
+ */
+/* USER CODE END Header_EthernetStatusTask */
+void EthernetStatusTask(void const *argument)
 {
-  /* init code for LWIP */
-  MX_LWIP_Init();
-  /* USER CODE BEGIN StartDefaultTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartDefaultTask */
+	/* init code for LWIP */
+	MX_LWIP_Init();
+	/* USER CODE BEGIN EthernetStatusTask */
+	MenuData_t menu_data;
+	/* Infinite loop */
+	for (;;)
+	{
+		if (netif_is_up(&gnetif))
+		{
+			sprintf(menu_data.ip_address, "IP:%s", ip4addr_ntoa(netif_ip4_addr(&gnetif)));
+			SendDataToMenuQueueUpdate(&menu_data);
+		}
+		else
+		{
+			sprintf(menu_data.ip_address, "IP:%s", "               ");
+
+			if (xQueueSend(menuQueueHandle, &menu_data, portMAX_DELAY) != pdPASS)
+			{
+				vTaskDelay(pdMS_TO_TICKS(50)); // Espera 100 milissegundos
+			}
+
+			sprintf(menu_data.ip_address, "IP:%s", "0.0.0.0");
+
+			if (xQueueSend(menuQueueHandle, &menu_data, portMAX_DELAY) != pdPASS)
+			{
+				vTaskDelay(pdMS_TO_TICKS(50)); // Espera 100 milissegundos
+			}
+
+			osDelay(100);
+		}
+		osDelay(50);
+	}
+	/* USER CODE END EthernetStatusTask */
 }
 
 /* USER CODE BEGIN Header_TcpSeverTask */
@@ -145,7 +181,16 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_TcpSeverTask */
-
+void TcpSeverTask(void const * argument)
+{
+  /* USER CODE BEGIN TcpSeverTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END TcpSeverTask */
+}
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */

@@ -18,7 +18,7 @@
 ../Middlewares/Third_Party/LwIP/src/core/tcp.c:930:1:tcp_update_rcv_ann_wnd	24	static
 ../Middlewares/Third_Party/LwIP/src/core/tcp.c:968:1:tcp_recved	24	static
 ../Middlewares/Third_Party/LwIP/src/core/tcp.c:1011:1:tcp_new_port	16	static
-../Middlewares/Third_Party/LwIP/src/core/tcp.c:1067:1:tcp_connect	48	static
+../Middlewares/Third_Party/LwIP/src/core/tcp.c:1067:1:tcp_connect	56	static
 ../Middlewares/Third_Party/LwIP/src/core/tcp.c:1192:1:tcp_slowtmr	80	static
 ../Middlewares/Third_Party/LwIP/src/core/tcp.c:1479:1:tcp_fasttmr	16	static
 ../Middlewares/Third_Party/LwIP/src/core/tcp.c:1526:1:tcp_txnow	16	static

@@ -1,10 +1,10 @@
 Core/Src/FileSystemAPI.o: ../Core/Src/FileSystemAPI.c \
  ../Core/Inc/FileSystemAPI.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
  ../Core/Inc/lfs_w25qflash.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h \
  ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -45,11 +45,11 @@ Core/Src/FileSystemAPI.o: ../Core/Src/FileSystemAPI.c \
  ../Middlewares/Third_Party/LwIP/system/arch/cc.h \
  ../Middlewares/Third_Party/LwIP/system/arch/cpu.h
 ../Core/Inc/FileSystemAPI.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
 ../Core/Inc/lfs_w25qflash.h:
-/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:

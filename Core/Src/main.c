@@ -30,6 +30,10 @@
 #include "FileSystemAPI.h"
 #include "lfs_w25qflash.h"
 #include "modbus_server.h"
+#include "cfg_files.h"
+#include "ssd1306.h"
+#include "ssd1306_tests.h"
+#include "AdapterDisplay.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,25 +98,28 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI2_Init();
-  MX_I2C1_Init();
   MX_USART1_UART_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, RESET);
-  HAL_Delay(50);
-  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, RESET);
-  HAL_Delay(50);
-  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, RESET);
-  HAL_Delay(50);
-  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, SET);
-  HAL_Delay(50);
-  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
-  HAL_Delay(50);
-  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, RESET);
+	HAL_Delay(50);
+	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, RESET);
+	HAL_Delay(50);
+	HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, RESET);
+	HAL_Delay(50);
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, SET);
+	HAL_Delay(50);
+	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
+	HAL_Delay(50);
+	HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+
+	FileSystemInit();
+	ModbusServerInit();
+	AdapterDisplaySSD1306Init();
 
 
-  FileSystemInit();
-  ModbusServerInit();
+
 
   /* USER CODE END 2 */
 
@@ -156,7 +163,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 316;
+  RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)

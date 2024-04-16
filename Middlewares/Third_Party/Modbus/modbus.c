@@ -7,11 +7,6 @@
 
 
 
-//volatile uint8_t modbus_buffer [ MODBUS_BUFFER_SIZE ] @ "EMAC_DMA_RAM";
-
-//
-// Calcula o CRC 16 do byte passado como par�metro levando em considera��o o valor anterior do CRC
-//
 uint16_t CalculaCRCByte ( uint16_t crc, uint8_t byte ) {
   uint8_t i;
   crc = crc^byte;
@@ -22,9 +17,7 @@ uint16_t CalculaCRCByte ( uint16_t crc, uint8_t byte ) {
   return crc;
 }
 
-//
-// Calcula o CRC 16 da stream passada como par�metro
-//
+
 uint16_t CalculaCRCStream ( uint8_t *str, uint16_t tam ) {
   uint16_t i,crc;
   crc = 0xFFFF;

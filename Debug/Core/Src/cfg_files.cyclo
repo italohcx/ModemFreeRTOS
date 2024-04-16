@@ -1,0 +1,6 @@
+../Core/Src/cfg_files.c:14:7:open_modbus_file	2
+../Core/Src/cfg_files.c:23:6:close_modbus_file	2
+../Core/Src/cfg_files.c:33:19:save_mb_to_file	3
+../Core/Src/cfg_files.c:60:19:load_mb_from_file	3
+../Core/Src/cfg_files.c:92:19:write_to_mb_single_register	8
+../Core/Src/cfg_files.c:148:10:read_from_mb_address	10

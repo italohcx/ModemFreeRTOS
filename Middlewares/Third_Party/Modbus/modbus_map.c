@@ -8,6 +8,10 @@
 #include "modbus_map.h"
 #include "modbus.h"
 #include "FileSystemAPI.h"
+#include "cfg_files.h"
+
+
+
 MB modbus;
 
 uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
@@ -33,6 +37,7 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 
 				ptr = GetAddrCoilRegister(address); // Pega o endereco real na memeria do CR
 				totalbytes = ReadCoilRegister(msg, ptr); // Le o valor do IR e monta parte da mensagem
+
 				break;
 			case 0x02: // Read input status
 				break;
@@ -50,6 +55,11 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 				ptr = GetAddrHoldingRegister(address); // Pega o endereco real na memoria do HR
 				totalbytes = PresetSingleRegister(msg, ptr); // Grava o valor do HR e monta parte da mensagem
 
+
+
+
+
+
 				//eeprom_write_char ( address, *( ptr ) );
 				//eeprom_write_char ( address + 1, *( ptr + 1 ) );
 
@@ -60,8 +70,7 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 					{
 						//if((modbusMapa.COPIA_TIPO_HARDW != 0) && (modbusMapa.TIPO_HARDW != modbusMapa.COPIA_TIPO_HARDW)){
 
-						modbus.INPUTREGISTERS[ADD_TIPO_HARDW] =
-								modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW];
+						modbus.INPUTREGISTERS[ADD_TIPO_HARDW] =modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW];
 
 						//modbusMapa.TIPO_HARDW = modbusMapa.COPIA_TIPO_HARDW;
 
@@ -92,13 +101,9 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 
 					if ((modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW] != 0) && (modbus.INPUTREGISTERS[ADD_TIPO_HARDW] != modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW]))
 					{
-
-						//if((modbusMapa.COPIA_TIPO_HARDW != 0) && (modbusMapa.TIPO_HARDW != modbusMapa.COPIA_TIPO_HARDW)){
-						// modbusMapa.TIPO_HARDW = modbusMapa.COPIA_TIPO_HARDW;
 						modbus.INPUTREGISTERS[ADD_TIPO_HARDW] = modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW];
 
 						ptr = (uint8_t*) GetAddrInputRegister(ADD_TIPO_HARDW);
-						// while(eeprom_write_int(END_TIPO_HARDW_EEPROM,modbusMapa.TIPO_HARDW));
 					}
 				}
 #ifdef WATCHDOG
@@ -110,6 +115,8 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 				break;
 			}
 			break;
+
+			save_mb_to_file(&modbus);
 		}
 	}
 	else
@@ -207,22 +214,14 @@ uint8_t SeparaMensagensMODBUS(uint8_t *bufMsg, int tamanho)
 
 
 
-// Função para ler o array do arquivo
-size_t Modbus_file_read(void *ptr, lfs_size_t size, size_t count, FILE_POINTER file) {
-    // Implemente a leitura do arquivo e armazene os dados no buffer apontado por 'ptr'
-}
-
-
-// Função para escrever o array no arquivo
-size_t Modubus_file_write(const void *ptr, lfs_size_t size, size_t count, FILE_POINTER file) {
 
 
 
+void LoadMapFromFile ()
+{
+	load_mb_from_file(&modbus);
 
 }
-
-
-
 
 
 void LoadHoldingRegisterRAM(void)

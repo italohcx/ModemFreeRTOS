@@ -10,6 +10,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Middlewares/Third_Party/w25Qxx/subdir.mk
+-include Middlewares/Third_Party/ssd1306/subdir.mk
 -include Middlewares/Third_Party/Modbus/subdir.mk
 -include Middlewares/Third_Party/LwIP/system/OS/subdir.mk
 -include Middlewares/Third_Party/LwIP/src/netif/ppp/subdir.mk
@@ -78,8 +79,8 @@ all: main-build
 main-build: STM32F4_BOARD.elf secondary-outputs
 
 # Tool invocations
-STM32F4_BOARD.elf STM32F4_BOARD.map: $(OBJS) $(USER_OBJS) /home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/STM32F407VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32F4_BOARD.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/italo/STM32CubeIDE/workspace_1.14.0/STM32F4_BOARD/STM32F407VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4_BOARD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32F4_BOARD.elf STM32F4_BOARD.map: $(OBJS) $(USER_OBJS) /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/STM32F407VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32F4_BOARD.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/STM32F407VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4_BOARD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
