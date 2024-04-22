@@ -54,7 +54,7 @@
 extern struct netif gnetif;
 /* USER CODE END Variables */
 osThreadId ethernetStatusTHandle;
-osThreadId tcpServerTaskHandle;
+osThreadId buttonsTaskHandle;
 osMessageQId menuQueueHandle;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,13 +63,16 @@ osMessageQId menuQueueHandle;
 /* USER CODE END FunctionPrototypes */
 
 void EthernetStatusTask(void const * argument);
-void TcpSeverTask(void const * argument);
+void ButtonsTask(void const * argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* GetIdleTaskMemory prototype (linked to static allocation support) */
 void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
+
+/* GetTimerTaskMemory prototype (linked to static allocation support) */
+void vApplicationGetTimerTaskMemory( StaticTask_t **ppxTimerTaskTCBBuffer, StackType_t **ppxTimerTaskStackBuffer, uint32_t *pulTimerTaskStackSize );
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
@@ -83,6 +86,19 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
   /* place for user code */
 }
 /* USER CODE END GET_IDLE_TASK_MEMORY */
+
+/* USER CODE BEGIN GET_TIMER_TASK_MEMORY */
+static StaticTask_t xTimerTaskTCBBuffer;
+static StackType_t xTimerStack[configTIMER_TASK_STACK_DEPTH];
+
+void vApplicationGetTimerTaskMemory( StaticTask_t **ppxTimerTaskTCBBuffer, StackType_t **ppxTimerTaskStackBuffer, uint32_t *pulTimerTaskStackSize )
+{
+  *ppxTimerTaskTCBBuffer = &xTimerTaskTCBBuffer;
+  *ppxTimerTaskStackBuffer = &xTimerStack[0];
+  *pulTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
+  /* place for user code */
+}
+/* USER CODE END GET_TIMER_TASK_MEMORY */
 
 /**
   * @brief  FreeRTOS initialization
@@ -108,7 +124,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* definition and creation of menuQueue */
-  osMessageQDef(menuQueue, 128, MenuData_t);
+  osMessageQDef(menuQueue, 6, MenuData_t);
   menuQueueHandle = osMessageCreate(osMessageQ(menuQueue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -120,12 +136,14 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(ethernetStatusT, EthernetStatusTask, osPriorityNormal, 0, 1024);
   ethernetStatusTHandle = osThreadCreate(osThread(ethernetStatusT), NULL);
 
-  /* definition and creation of tcpServerTask */
-  osThreadDef(tcpServerTask, TcpSeverTask, osPriorityIdle, 0, 1024);
-  tcpServerTaskHandle = osThreadCreate(osThread(tcpServerTask), NULL);
+  /* definition and creation of buttonsTask */
+  osThreadDef(buttonsTask, ButtonsTask, osPriorityBelowNormal, 0, 1024);
+  buttonsTaskHandle = osThreadCreate(osThread(buttonsTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+
+
   /* USER CODE END RTOS_THREADS */
 
 }
@@ -137,59 +155,43 @@ void MX_FREERTOS_Init(void) {
   * @retval None
  */
 /* USER CODE END Header_EthernetStatusTask */
-void EthernetStatusTask(void const *argument)
+void EthernetStatusTask(void const * argument)
 {
-	/* init code for LWIP */
-	MX_LWIP_Init();
-	/* USER CODE BEGIN EthernetStatusTask */
+  /* init code for LWIP */
+  MX_LWIP_Init();
+  /* USER CODE BEGIN EthernetStatusTask */
 	MenuData_t menu_data;
 	/* Infinite loop */
 	for (;;)
 	{
 		if (netif_is_up(&gnetif))
 		{
-			sprintf(menu_data.ip_address, "IP:%s", ip4addr_ntoa(netif_ip4_addr(&gnetif)));
+			sprintf(menu_data.items[PAGE_0][LINE_0],"IPAD:%s", ip4addr_ntoa(netif_ip4_addr(&gnetif)));
+			sprintf(menu_data.items[PAGE_0][LINE_1],"MASK:%s", ip4addr_ntoa(netif_ip4_netmask(&gnetif)));
+			sprintf(menu_data.items[PAGE_0][LINE_2],"GWAY:%s", ip4addr_ntoa(netif_ip4_gw(&gnetif)));
 			SendDataToMenuQueueUpdate(&menu_data);
 		}
-		else
-		{
-			sprintf(menu_data.ip_address, "IP:%s", "               ");
+  /* USER CODE END EthernetStatusTask */
+  }
 
-			if (xQueueSend(menuQueueHandle, &menu_data, portMAX_DELAY) != pdPASS)
-			{
-				vTaskDelay(pdMS_TO_TICKS(50)); // Espera 100 milissegundos
-			}
-
-			sprintf(menu_data.ip_address, "IP:%s", "0.0.0.0");
-
-			if (xQueueSend(menuQueueHandle, &menu_data, portMAX_DELAY) != pdPASS)
-			{
-				vTaskDelay(pdMS_TO_TICKS(50)); // Espera 100 milissegundos
-			}
-
-			osDelay(100);
-		}
-		osDelay(50);
-	}
-	/* USER CODE END EthernetStatusTask */
 }
 
-/* USER CODE BEGIN Header_TcpSeverTask */
+/* USER CODE BEGIN Header_ButtonsTask */
 /**
-* @brief Function implementing the tcpServerTask thread.
+* @brief Function implementing the buttonsTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_TcpSeverTask */
-void TcpSeverTask(void const * argument)
+/* USER CODE END Header_ButtonsTask */
+void ButtonsTask(void const * argument)
 {
-  /* USER CODE BEGIN TcpSeverTask */
+  /* USER CODE BEGIN ButtonsTask */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END TcpSeverTask */
+  /* USER CODE END ButtonsTask */
 }
 
 /* Private application code --------------------------------------------------*/

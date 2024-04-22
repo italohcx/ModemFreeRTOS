@@ -67,6 +67,12 @@ void Error_Handler(void);
 #define SPI1_CS_GPIO_Port GPIOA
 #define SPI2_NRF_CS_Pin GPIO_PIN_8
 #define SPI2_NRF_CS_GPIO_Port GPIOE
+#define BT_SW1_Pin GPIO_PIN_10
+#define BT_SW1_GPIO_Port GPIOE
+#define BT_SW2_Pin GPIO_PIN_11
+#define BT_SW2_GPIO_Port GPIOE
+#define BT_SW3_Pin GPIO_PIN_12
+#define BT_SW3_GPIO_Port GPIOE
 #define LED1_Pin GPIO_PIN_13
 #define LED1_GPIO_Port GPIOE
 #define LED2_Pin GPIO_PIN_14

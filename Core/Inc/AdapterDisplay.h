@@ -10,11 +10,31 @@
 
 #include "ssd1306.h"
 
+#define MENU_ITEMS_PER_PAGE 3
+#define NUM_MENU_PAGES 2
+#define MENU_ITEM_LENGTH 21
+
+
+#define LINE_0 0
+#define LINE_1 1
+#define LINE_2 2
+
+
+#define PAGE_0 0
+#define PAGE_1 1
+
+
+
+
+
+// Estrutura para os dados do menu
 typedef struct {
-	char ip_address[16];  // Endereço IP
-	char cfg_info[20];    // Informações de configuração
-	char rot_info[30];    // Informações de roteamento
+
+	uint8_t page;
+    char items[NUM_MENU_PAGES][MENU_ITEMS_PER_PAGE][MENU_ITEM_LENGTH];
 } MenuData_t;
+
+
 
 void AdapterDisplaySSD1306Init();
 void WriteMenuToSSD1306(const MenuData_t *menu_data);

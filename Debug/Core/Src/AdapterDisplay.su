@@ -1,6 +1,8 @@
-../Core/Src/AdapterDisplay.c:27:6:AdapterDisplaySSD1306Init	80	static
-../Core/Src/AdapterDisplay.c:45:6:WriteMenuToSSD1306	16	static
-../Core/Src/AdapterDisplay.c:60:6:WriteLinetoSSD1306	24	static
-../Core/Src/AdapterDisplay.c:70:6:UpdateSSD1306Task	88	static
-../Core/Src/AdapterDisplay.c:85:6:SendDataToMenuQueueUpdate	16	static
-../Core/Src/AdapterDisplay.c:94:6:AdapterDisplayInitUpdateTask	48	static
+../Core/Src/AdapterDisplay.c:25:6:AdapterDisplaySSD1306Init	144	static
+../Core/Src/AdapterDisplay.c:49:6:WriteMenuToSSD1306	32	static
+../Core/Src/AdapterDisplay.c:68:6:NextPage	4	static
+../Core/Src/AdapterDisplay.c:72:6:PreviousPage	4	static
+../Core/Src/AdapterDisplay.c:78:6:WriteLinetoSSD1306	24	static
+../Core/Src/AdapterDisplay.c:88:6:UpdateSSD1306Task	144	static
+../Core/Src/AdapterDisplay.c:103:6:SendDataToMenuQueueUpdate	16	static
+../Core/Src/AdapterDisplay.c:112:6:AdapterDisplayInitUpdateTask	48	static

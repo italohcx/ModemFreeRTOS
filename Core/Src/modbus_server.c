@@ -12,6 +12,7 @@
 #include "lwip/sockets.h"
 #include "lwip/tcp.h"
 #include "lwip/tcpip.h"
+
 #include "AdapterDisplay.h"
 
 #define MODBUS_SERVER_TASK_STACK_SIZE  (1024)
@@ -124,8 +125,7 @@ void ModbusTcpSeverTask(void const *argument)
 	}
 
 	printf("TCP server listening on port %d \r\n", MODBUS_SERVER_TCP_PORT);
-	snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info), "CFG:DC Port:%d",
-			MODBUS_SERVER_TCP_PORT);
+	//snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info), "CFG:DC Port:%d",MODBUS_SERVER_TCP_PORT);
 	SendDataToMenuQueueUpdate(&menu_data);
 
 	/* Infinite loop */
@@ -139,8 +139,7 @@ void ModbusTcpSeverTask(void const *argument)
 				{
 					i = MODBUS_OPEN;
 
-					snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info),
-							"CFG:CN Port:%d", MODBUS_SERVER_TCP_PORT);
+					//snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info),	"CFG:CN Port:%d", MODBUS_SERVER_TCP_PORT);
 					SendDataToMenuQueueUpdate(&menu_data);
 
 					/* Set keepalive options if enabled */
@@ -159,8 +158,7 @@ void ModbusTcpSeverTask(void const *argument)
 				i = MODBUS_CLOSED;
 				netconn_close(newconn);
 				netconn_delete(newconn);
-				snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info),
-						"CFG:DC Port:%d", MODBUS_SERVER_TCP_PORT);
+				//snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info),"CFG:DC Port:%d", MODBUS_SERVER_TCP_PORT);
 				SendDataToMenuQueueUpdate(&menu_data);
 				printf("Connection closed \r\n");
 			}
