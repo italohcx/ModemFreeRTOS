@@ -5,6 +5,7 @@
  *      Author: italo
  */
 
+#include <AdapterSSD1306.h>
 #include <stdio.h>
 #include "modbus_server.h"
 #include "cmsis_os.h"
@@ -13,7 +14,6 @@
 #include "lwip/tcp.h"
 #include "lwip/tcpip.h"
 
-#include "AdapterDisplay.h"
 
 #define MODBUS_SERVER_TASK_STACK_SIZE  (2048)
 #define MODBUS_SERVER_TCP_PORT         (22000)
@@ -41,7 +41,7 @@ static void ModbusStatusInfo(bool open)
 		sprintf(menu.items[PAGE_1][LINE_0], "CFG:DC Port:%d",MODBUS_SERVER_TCP_PORT);
 	}
 
-	SendDataToMenuQueueUpdate(&menu);
+	AdapterSSD1306_SendDataToMenuQueueUpdate(&menu);
 }
 
 

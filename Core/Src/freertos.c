@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+#include <AdapterSSD1306.h>
 #include "FreeRTOS.h"
 #include "task.h"
 #include "main.h"
@@ -30,7 +31,6 @@
 #include "sockets.h"
 #include "stdbool.h"
 #include "ssd1306.h"
-#include "AdapterDisplay.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -181,7 +181,7 @@ void EthernetStatusTask(void const *argument)
 				strcpy(menu_data.items[PAGE_0][LINE_0], ipad);
 				strcpy(menu_data.items[PAGE_0][LINE_1], mask);
 				strcpy(menu_data.items[PAGE_0][LINE_2], gway);
-				SendDataToMenuQueueUpdate(&menu_data);
+				AdapterSSD1306_SendDataToMenuQueueUpdate(&menu_data);
 				osDelay(100);
 			}
 
@@ -203,13 +203,15 @@ void ButtonsTask(void const *argument)
 {
 	/* USER CODE BEGIN ButtonsTask */
 	/* Infinite loop */
+
+	bool activeDarkMode = false;
 	for (;;)
 	{
 
 		if (HAL_GPIO_ReadPin(BT_SW1_GPIO_Port, BT_SW1_Pin) == RESET)
 		{
 
-			NextPage();
+			AdapterSSD1306_NextPage();
 			HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
 
 			osDelay(250);
@@ -218,8 +220,27 @@ void ButtonsTask(void const *argument)
 		if (HAL_GPIO_ReadPin(BT_SW2_GPIO_Port, BT_SW2_Pin) == RESET)
 		{
 
-			PreviousPage();
+			AdapterSSD1306_PreviousPage();
 			HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+
+			osDelay(250);
+		}
+
+		if (HAL_GPIO_ReadPin(BT_SW3_GPIO_Port, BT_SW3_Pin) == RESET)
+		{
+
+			if (activeDarkMode)
+			{
+				AdapterSSD1306_DarkMode(activeDarkMode);
+				activeDarkMode = false;
+
+			}
+			else
+			{
+				AdapterSSD1306_DarkMode(activeDarkMode);
+				activeDarkMode = true;
+
+			}
 
 			osDelay(250);
 		}

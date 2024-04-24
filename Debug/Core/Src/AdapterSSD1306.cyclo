@@ -1,0 +1,12 @@
+../Core/Src/AdapterSSD1306.c:22:6:AdapterSSD1306_Init	1
+../Core/Src/AdapterSSD1306.c:42:6:AdapterSSD1306_LoadMenus	2
+../Core/Src/AdapterSSD1306.c:70:6:AdapterSSD1306_SetDisplayColor	2
+../Core/Src/AdapterSSD1306.c:84:6:AdapterSSD1306_WriteMenu	2
+../Core/Src/AdapterSSD1306.c:102:6:AdapterSSD1306_WriteLine	2
+../Core/Src/AdapterSSD1306.c:120:6:AdapterSSD1306_NextPage	1
+../Core/Src/AdapterSSD1306.c:127:6:AdapterSSD1306_PreviousPage	1
+../Core/Src/AdapterSSD1306.c:134:6:AdapterSSD1306_DarkMode	1
+../Core/Src/AdapterSSD1306.c:141:6:AdapterSSD1306_UpdateTask	3
+../Core/Src/AdapterSSD1306.c:163:6:AdapterSSD1306_RefreshDisplay	9
+../Core/Src/AdapterSSD1306.c:196:6:AdapterSSD1306_SendDataToMenuQueueUpdate	2
+../Core/Src/AdapterSSD1306.c:205:6:AdapterSSD1306_InitUpdateTask	1

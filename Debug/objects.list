@@ -1,4 +1,4 @@
-"./Core/Src/AdapterDisplay.o"
+"./Core/Src/AdapterSSD1306.o"
 "./Core/Src/FileSystemAPI.o"
 "./Core/Src/cfg_files.o"
 "./Core/Src/file_system.o"

@@ -17,6 +17,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <AdapterSSD1306.h>
 #include "main.h"
 #include "cmsis_os.h"
 #include "i2c.h"
@@ -33,7 +34,6 @@
 #include "cfg_files.h"
 #include "ssd1306.h"
 #include "ssd1306_tests.h"
-#include "AdapterDisplay.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,6 +54,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
 
 /* USER CODE END PV */
 
@@ -112,14 +113,12 @@ int main(void)
 	HAL_Delay(50);
 	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
 	HAL_Delay(50);
-	HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+
 
 
 	FileSystemInit();
 	ModbusServerInit();
-	AdapterDisplaySSD1306Init();
-
-
+	AdapterSSD1306_Init();
 
 
   /* USER CODE END 2 */

@@ -1,4 +1,4 @@
-../Core/Src/modbus_server.c:31:13:ModbusStatusInfo	144	static
+../Core/Src/modbus_server.c:31:13:ModbusStatusInfo	208	static
 ../Core/Src/modbus_server.c:48:16:ModbusHandleConnection	552	static
 ../Core/Src/modbus_server.c:93:6:Modbus_activateTcpKeepAlive	32	static
 ../Core/Src/modbus_server.c:108:6:ModbusTcpSeverTask	32	static

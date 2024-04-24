@@ -1,8 +1,7 @@
 Core/Src/modbus_server.o: ../Core/Src/modbus_server.c \
- ../Core/Inc/modbus_server.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/api.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
- ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \
+ ../Core/Inc/AdapterSSD1306.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -35,6 +34,11 @@ Core/Src/modbus_server.o: ../Core/Src/modbus_server.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h \
+ ../Core/Inc/modbus_server.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/api.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
+ ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h \
  ../Middlewares/Third_Party/LwIP/system/arch/cc.h \
@@ -88,16 +92,10 @@ Core/Src/modbus_server.o: ../Core/Src/modbus_server.c \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/icmp.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/icmp.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h \
- ../Core/Inc/AdapterDisplay.h \
- /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h \
- /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h \
- /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h
-../Core/Inc/modbus_server.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/api.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
-../LWIP/Target/lwipopts.h:
-../Core/Inc/main.h:
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h
+../Core/Inc/AdapterSSD1306.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -130,6 +128,12 @@ Core/Src/modbus_server.o: ../Core/Src/modbus_server.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h:
+../Core/Inc/modbus_server.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/api.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
+../LWIP/Target/lwipopts.h:
+../Core/Inc/main.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h:
 ../Middlewares/Third_Party/LwIP/system/arch/cc.h:
@@ -184,7 +188,3 @@ Core/Src/modbus_server.o: ../Core/Src/modbus_server.c \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/icmp.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h:
-../Core/Inc/AdapterDisplay.h:
-/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h:
-/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h:
-/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h:
