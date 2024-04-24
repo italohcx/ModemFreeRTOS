@@ -42,5 +42,6 @@ void WriteLinetoSSD1306(const char *text, int line_number);
 void UpdateSSD1306Task(void const *argument);
 void SendDataToMenuQueueUpdate(const MenuData_t *menu_data);
 void AdapterDisplayInitUpdateTask();
+void RefreshDisplay(MenuData_t *receivedMenu, MenuData_t *menuDisplay);
 
 #endif /* INC_ADAPTERDISPLAY_H_ */

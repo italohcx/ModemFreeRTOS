@@ -155,24 +155,40 @@ void MX_FREERTOS_Init(void) {
   * @retval None
  */
 /* USER CODE END Header_EthernetStatusTask */
-void EthernetStatusTask(void const * argument)
+void EthernetStatusTask(void const *argument)
 {
-  /* init code for LWIP */
-  MX_LWIP_Init();
-  /* USER CODE BEGIN EthernetStatusTask */
-	MenuData_t menu_data;
+	/* init code for LWIP */
+	MX_LWIP_Init();
+	/* USER CODE BEGIN EthernetStatusTask */
+	MenuData_t menu_data = {0};
+	char ipad[21] = {0};
+	char mask[21] = {0};
+	char gway[21] = {0};
+
 	/* Infinite loop */
 	for (;;)
 	{
 		if (netif_is_up(&gnetif))
 		{
-			sprintf(menu_data.items[PAGE_0][LINE_0],"IPAD:%s", ip4addr_ntoa(netif_ip4_addr(&gnetif)));
-			sprintf(menu_data.items[PAGE_0][LINE_1],"MASK:%s", ip4addr_ntoa(netif_ip4_netmask(&gnetif)));
-			sprintf(menu_data.items[PAGE_0][LINE_2],"GWAY:%s", ip4addr_ntoa(netif_ip4_gw(&gnetif)));
-			SendDataToMenuQueueUpdate(&menu_data);
+			sprintf(ipad, "IPAD:%s", ip4addr_ntoa(netif_ip4_addr(&gnetif)));
+			sprintf(mask, "MASK:%s", ip4addr_ntoa(netif_ip4_netmask(&gnetif)));
+			sprintf(gway, "GWAY:%s", ip4addr_ntoa(netif_ip4_gw(&gnetif)));
+
+			if (strcmp(menu_data.items[PAGE_0][LINE_0], ipad) != 0 ||
+				strcmp(menu_data.items[PAGE_0][LINE_1], mask) != 0 ||
+				strcmp(menu_data.items[PAGE_0][LINE_2], gway) != 0)
+			{
+				strcpy(menu_data.items[PAGE_0][LINE_0], ipad);
+				strcpy(menu_data.items[PAGE_0][LINE_1], mask);
+				strcpy(menu_data.items[PAGE_0][LINE_2], gway);
+				SendDataToMenuQueueUpdate(&menu_data);
+				osDelay(100);
+			}
+
 		}
-  /* USER CODE END EthernetStatusTask */
-  }
+		/* USER CODE END EthernetStatusTask */
+		osDelay(1);
+	}
 
 }
 
@@ -183,15 +199,34 @@ void EthernetStatusTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_ButtonsTask */
-void ButtonsTask(void const * argument)
+void ButtonsTask(void const *argument)
 {
-  /* USER CODE BEGIN ButtonsTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END ButtonsTask */
+	/* USER CODE BEGIN ButtonsTask */
+	/* Infinite loop */
+	for (;;)
+	{
+
+		if (HAL_GPIO_ReadPin(BT_SW1_GPIO_Port, BT_SW1_Pin) == RESET)
+		{
+
+			NextPage();
+			HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+
+			osDelay(250);
+		}
+
+		if (HAL_GPIO_ReadPin(BT_SW2_GPIO_Port, BT_SW2_Pin) == RESET)
+		{
+
+			PreviousPage();
+			HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+
+			osDelay(250);
+		}
+
+		osDelay(10);
+	}
+	/* USER CODE END ButtonsTask */
 }
 
 /* Private application code --------------------------------------------------*/

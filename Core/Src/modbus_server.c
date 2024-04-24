@@ -15,7 +15,7 @@
 
 #include "AdapterDisplay.h"
 
-#define MODBUS_SERVER_TASK_STACK_SIZE  (1024)
+#define MODBUS_SERVER_TASK_STACK_SIZE  (2048)
 #define MODBUS_SERVER_TCP_PORT         (22000)
 #define MODBUS_SERVER_KEEP_ALIVE       (true)
 #define MODBUS_SERVER_BUF_SIZE         (512)
@@ -26,6 +26,23 @@
 osThreadId modbusTcpServerTaskHandle;
 
 
+
+
+static void ModbusStatusInfo(bool open)
+{
+	MenuData_t menu = {0};
+	if (open)
+	{
+
+		sprintf(menu.items[PAGE_1][LINE_0], "CFG:CN Port:%d",MODBUS_SERVER_TCP_PORT);
+	}
+	else
+	{
+		sprintf(menu.items[PAGE_1][LINE_0], "CFG:DC Port:%d",MODBUS_SERVER_TCP_PORT);
+	}
+
+	SendDataToMenuQueueUpdate(&menu);
+}
 
 
 static uint8_t ModbusHandleConnection(struct netconn *connfd)
@@ -93,7 +110,7 @@ void ModbusTcpSeverTask(void const *argument)
 	/* USER CODE BEGIN TcpSeverTask */
 	struct netconn *conn, *newconn;
 	uint8_t i = MODBUS_CLOSED;
-	MenuData_t menu_data;
+
 
 	/* Create a new TCP connection handle. */
 	conn = netconn_new(NETCONN_TCP);
@@ -125,8 +142,9 @@ void ModbusTcpSeverTask(void const *argument)
 	}
 
 	printf("TCP server listening on port %d \r\n", MODBUS_SERVER_TCP_PORT);
-	//snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info), "CFG:DC Port:%d",MODBUS_SERVER_TCP_PORT);
-	SendDataToMenuQueueUpdate(&menu_data);
+
+	 ModbusStatusInfo(MODBUS_CLOSED);
+
 
 	/* Infinite loop */
 	for (;;)
@@ -139,14 +157,11 @@ void ModbusTcpSeverTask(void const *argument)
 				{
 					i = MODBUS_OPEN;
 
-					//snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info),	"CFG:CN Port:%d", MODBUS_SERVER_TCP_PORT);
-					SendDataToMenuQueueUpdate(&menu_data);
-
+					 ModbusStatusInfo(MODBUS_OPEN);
 					/* Set keepalive options if enabled */
 					if (MODBUS_SERVER_KEEP_ALIVE)
 					{
-						Modbus_activateTcpKeepAlive(newconn, keepidle,
-								keepintvl, keepcnt);
+						Modbus_activateTcpKeepAlive(newconn, keepidle,keepintvl, keepcnt);
 					}
 				}
 			}
@@ -158,8 +173,7 @@ void ModbusTcpSeverTask(void const *argument)
 				i = MODBUS_CLOSED;
 				netconn_close(newconn);
 				netconn_delete(newconn);
-				//snprintf(menu_data.cfg_info, sizeof(menu_data.cfg_info),"CFG:DC Port:%d", MODBUS_SERVER_TCP_PORT);
-				SendDataToMenuQueueUpdate(&menu_data);
+				ModbusStatusInfo(MODBUS_CLOSED);
 				printf("Connection closed \r\n");
 			}
 		}

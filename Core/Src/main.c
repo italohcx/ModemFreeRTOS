@@ -96,11 +96,11 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_SPI2_Init();
-  MX_USART1_UART_Init();
-  MX_I2C1_Init();
-  /* USER CODE BEGIN 2 */
+	MX_GPIO_Init();
+	MX_SPI2_Init();
+	MX_USART1_UART_Init();
+	MX_I2C1_Init();
+	/* USER CODE BEGIN 2 */
 
 	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, RESET);
 	HAL_Delay(50);
@@ -113,6 +113,7 @@ int main(void)
 	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
 	HAL_Delay(50);
 	HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+
 
 	FileSystemInit();
 	ModbusServerInit();

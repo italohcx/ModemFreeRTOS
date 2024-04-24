@@ -1,8 +1,9 @@
-../Core/Src/AdapterDisplay.c:25:6:AdapterDisplaySSD1306Init	1
-../Core/Src/AdapterDisplay.c:49:6:WriteMenuToSSD1306	2
-../Core/Src/AdapterDisplay.c:68:6:NextPage	1
-../Core/Src/AdapterDisplay.c:72:6:PreviousPage	1
-../Core/Src/AdapterDisplay.c:78:6:WriteLinetoSSD1306	1
-../Core/Src/AdapterDisplay.c:88:6:UpdateSSD1306Task	2
-../Core/Src/AdapterDisplay.c:103:6:SendDataToMenuQueueUpdate	2
-../Core/Src/AdapterDisplay.c:112:6:AdapterDisplayInitUpdateTask	1
+../Core/Src/AdapterDisplay.c:29:6:AdapterDisplaySSD1306Init	1
+../Core/Src/AdapterDisplay.c:52:6:WriteMenuToSSD1306	2
+../Core/Src/AdapterDisplay.c:70:6:NextPage	1
+../Core/Src/AdapterDisplay.c:77:6:PreviousPage	1
+../Core/Src/AdapterDisplay.c:86:6:WriteLinetoSSD1306	1
+../Core/Src/AdapterDisplay.c:96:6:UpdateSSD1306Task	2
+../Core/Src/AdapterDisplay.c:118:6:RefreshDisplay	9
+../Core/Src/AdapterDisplay.c:144:6:SendDataToMenuQueueUpdate	2
+../Core/Src/AdapterDisplay.c:153:6:AdapterDisplayInitUpdateTask	1

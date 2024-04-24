@@ -9,38 +9,41 @@
 #include "FreeRTOS.h"
 #include "queue.h"
 #include <stdio.h>
+#include "string.h"
 
 
-#define UPDATE_DISPLAY_TASK_STACK_SIZE 2048
+#define UPDATE_DISPLAY_TASK_STACK_SIZE 512
+
+
 int current_page = 0;
 
 
 
 osThreadId updateDisplayTaskHandle;
 extern osMessageQId menuQueueHandle;
+static MenuData_t menuDisplay = {0};
 
 void WriteMenuToSSD1306(const MenuData_t *menu_data);
 void WriteLinetoSSD1306(const char *text, int line_number);
 
 void AdapterDisplaySSD1306Init()
 {
-	MenuData_t menu_data;
 	ssd1306_Init();
 	ssd1306_Fill(Black);
 
 	// Inicializa as informações do menu
 	// Menu 1: IP, MASK, GATEWAY
-	strcpy(menu_data.items[PAGE_0][LINE_0],"IPAD:0.0.0.0");
-	strcpy(menu_data.items[PAGE_0][LINE_1],"MASK:0.0.0.0");
-	strcpy(menu_data.items[PAGE_0][LINE_2],"GWAY:0.0.0.0");
+	strcpy(menuDisplay.items[PAGE_0][LINE_0],"IPAD:0.0.0.0");
+	strcpy(menuDisplay.items[PAGE_0][LINE_1],"MASK:0.0.0.0");
+	strcpy(menuDisplay.items[PAGE_0][LINE_2],"GWAY:0.0.0.0");
 
 
 	// Menu 2: CFG, ROT
-	strcpy(menu_data.items[1][0], "CFG:DC Port:0");
-    strcpy(menu_data.items[1][1], "ROT:DC SUP:DC FAB:DC");
+	strcpy(menuDisplay.items[PAGE_1][LINE_0], "CFG:DC Port:0");
+    strcpy(menuDisplay.items[PAGE_1][LINE_1], "ROT:DC SUP:DC FAB:DC");
 
 	// Escreve as informações do menu no display
-	WriteMenuToSSD1306(&menu_data);
+	WriteMenuToSSD1306(&menuDisplay);
 
 	// Inicializa a tarefa de atualização do display
 	AdapterDisplayInitUpdateTask();
@@ -59,7 +62,6 @@ void WriteMenuToSSD1306(const MenuData_t *menu_data)
 	{
 		WriteLinetoSSD1306(menu_data->items[current_page][i - start_index], i - start_index);
 	}
-
 	// Atualiza o display
 	//update_display();
 }
@@ -67,10 +69,16 @@ void WriteMenuToSSD1306(const MenuData_t *menu_data)
 
 void NextPage() {
     current_page = (current_page + 1) % NUM_MENU_PAGES;
+    ssd1306_Fill(Black);
+    osDelay(50);
+	WriteMenuToSSD1306(&menuDisplay);
 }
 
 void PreviousPage() {
     current_page = (current_page - 1 + NUM_MENU_PAGES) % NUM_MENU_PAGES;
+    ssd1306_Fill(Black);
+    osDelay(50);
+	WriteMenuToSSD1306(&menuDisplay);
 }
 
 
@@ -88,15 +96,48 @@ void WriteLinetoSSD1306(const char *text, int line_number)
 void UpdateSSD1306Task(void const *argument)
 {
 
-	MenuData_t menu_data;
+	MenuData_t receivedMenu = {0};
 
 	while (1)
 	{
-		if (xQueueReceive(menuQueueHandle, &menu_data, portMAX_DELAY) == pdPASS)
+		if (xQueueReceive(menuQueueHandle, &receivedMenu, portMAX_DELAY) == pdPASS)
 		{
-			WriteMenuToSSD1306(&menu_data);
+			RefreshDisplay(&receivedMenu, &menuDisplay);
+
+			WriteMenuToSSD1306(&menuDisplay);
+
+			 memset(&receivedMenu, 0, sizeof(MenuData_t));
 		}
 		osDelay(10);
+    }
+}
+
+
+
+
+void RefreshDisplay(MenuData_t *receivedMenu, MenuData_t *menuDisplay) {
+    // Verificar se receivedMenu e menuDisplay são válidos
+    if (receivedMenu == NULL || menuDisplay == NULL) {
+        return; // Retorna sem fazer nada se algum deles for nulo
+    }
+
+    // Iterar sobre todas as páginas e itens do menu
+    for (int i = 0; i < NUM_MENU_PAGES; ++i) {
+
+    	for (int j = 0; j < MENU_ITEMS_PER_PAGE; ++j) {
+            // Verificar se o índice está dentro dos limites do array
+            if (i < NUM_MENU_PAGES && j < MENU_ITEMS_PER_PAGE) {
+                // Verificar se o item atual difere do item recebido
+                if (strcmp(menuDisplay->items[i][j], receivedMenu->items[i][j]) != 0) {
+                    // Se houver diferença, copiar o novo item para o menuDisplay
+                	if(strcmp(receivedMenu->items[i][j], "") != 0)
+                	{
+                		strcpy(menuDisplay->items[i][j], receivedMenu->items[i][j]);
+                	}
+
+                }
+            }
+        }
     }
 }
 
