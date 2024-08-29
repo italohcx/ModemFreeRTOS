@@ -21,6 +21,8 @@
 #define LOG2 LOG
 
 
+
+
 TModbusMap modbusMap;
 
 
@@ -196,7 +198,7 @@ static bool CfgFilesEncode(uint16_t fileIndex, void *fileDataBuffer, size_t *fil
       TModbusMap *modbusFile = (TModbusMap *) listCfgFiles[fileIndex].fileContent;
 
        if (setDefaultValues)
-         CreateDefaultModbusMap(modbusFile);
+         CreateDefaultModbusMap(fileDataBuffer, modbusFile);
        *fileSize = sizeof(TModbusMap);
 
        return true;

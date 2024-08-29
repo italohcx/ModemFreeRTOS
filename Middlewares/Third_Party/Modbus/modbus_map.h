@@ -19,14 +19,13 @@
 
 
 typedef struct
-
 {
 	uint16_t COILS[TOTAL_VARIAVEIS_COILS];
 	uint16_t HOLDINGREGISTERS[TOTAL_VARIAVEIS_HOLDING];
 	uint16_t INPUTREGISTERS[TOTAL_VARIAVEIS_INPUT];
 	uint16_t ESPELHO[TOTAL_VARIAVEIS_ESPELHO];
 }
-MB;
+TModbusMap;
 
 
 typedef enum
@@ -1392,8 +1391,7 @@ typedef struct
 	uint16_t RES506;   //506
 }
 
-MODBUS_MAPA;
-
+TGetIndexModbus;
 
 extern uint16_t InterpreterMODBUS(uint8_t*, uint16_t);
 extern uint8_t SeparaMensagensMODBUS(uint8_t*, int);
@@ -1402,7 +1400,7 @@ void LoadHoldingRegisterRAM(void);
 void LoadInputRegisterRAM(void);
 void LoadCoilRegisterRAM(void);
 void LoadEspelhoRAM(void);
-
+void CreateDefaultModbusMap (void *fileDataBuffer, TModbusMap * modbusMap);
 
 
 #endif /* THIRD_PARTY_MODBUS_MODBUS_MAP_H_ */

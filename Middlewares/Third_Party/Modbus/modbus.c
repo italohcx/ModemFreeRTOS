@@ -4,9 +4,6 @@
 
 
 
-
-
-
 uint16_t CalculaCRCByte ( uint16_t crc, uint8_t byte ) {
   uint8_t i;
   crc = crc^byte;
@@ -103,7 +100,6 @@ uint8_t PresetSingleRegister ( uint8_t *buffer, uint8_t *ptr ) {
 	#endif
 	return ( 8 );
 }
-
 
 uint8_t PresetMultipleRegisters ( uint8_t *buffer, uint8_t *ptr ) {
 	uint8_t bytecount, i;

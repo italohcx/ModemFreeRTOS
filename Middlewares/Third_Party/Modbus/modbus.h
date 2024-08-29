@@ -20,8 +20,8 @@
 //#include <rtl.h>
 
 
-#define MODBUS_BUFFER_SIZE	255
-#define cPOLINOMIO 					0xA001
+#define MODBUS_BUFFER_SIZE	256
+#define cPOLINOMIO 		    0xA001
 #define LITTLE_ENDIAN
 //#define BIG_ENDIAN
 

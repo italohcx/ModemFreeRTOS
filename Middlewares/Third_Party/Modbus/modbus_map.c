@@ -11,8 +11,7 @@
 #include "cfg_files.h"
 
 
-
-MB modbus;
+TModbusMap modbus;
 
 uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 {
@@ -57,7 +56,7 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 
 
 
-
+				save_mb_to_file(&modbus);
 
 
 				//eeprom_write_char ( address, *( ptr ) );
@@ -105,6 +104,8 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 
 						ptr = (uint8_t*) GetAddrInputRegister(ADD_TIPO_HARDW);
 					}
+
+					save_mb_to_file(&modbus);
 				}
 #ifdef WATCHDOG
         fWatchDogReset();
@@ -115,8 +116,6 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 				break;
 			}
 			break;
-
-			save_mb_to_file(&modbus);
 		}
 	}
 	else
@@ -214,12 +213,41 @@ uint8_t SeparaMensagensMODBUS(uint8_t *bufMsg, int tamanho)
 
 
 
+void CreateDefaultModbusMap (void *fileDataBuffer, TModbusMap * modbusMap)
+{
+  if(modbusMap == NULL)
+
+    return;
+  //memset(modbusMap, 0, sizeof(TModbusMap));
+
+
+  memset(fileDataBuffer, 0, (1024 * 2));
+
+  for (int var = 0; var < TOTAL_VARIAVEIS_INPUT; ++var) {
+
+    modbusMap->INPUTREGISTERS[var] = 1;
+  }
+
+  for (int var = 0; var < TOTAL_VARIAVEIS_HOLDING; ++var) {
+
+    modbusMap->HOLDINGREGISTERS[var] = 2;
+  }
+
+
+  for (int var = 0; var < TOTAL_VARIAVEIS_ESPELHO; ++var) {
+
+    modbusMap->ESPELHO[var] = 3;
+  }
+
+  memcpy(fileDataBuffer, modbusMap, sizeof(TModbusMap));
+}
+
 
 
 
 void LoadMapFromFile ()
 {
-	load_mb_from_file(&modbus);
+	//load_mb_from_file(&modbus);
 
 }
 
