@@ -228,7 +228,6 @@ static bool CfgFilesEncode(uint16_t fileIndex, void *fileDataBuffer, size_t *fil
 /**
  * @fn void CfgFilesInit()
  * @brief  Initializes control struct list for Configuration Files Management
- * @param  upsQueueHandle Queue Handle for UPS Data Exchange
  * @retval None
  */
 void CfgFilesInit()
@@ -330,204 +329,71 @@ void CfgFilesInit()
 
 }
 
+bool CfgFiles_UpdateCfgFileByIndex(uint16_t fileIndex, bool setDefaultValues)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-FILE *open_modbus_file(const char *mode) {
-
-    FILE *file = file_open((char*) MODBUS_MAP_FILE_PATH, "ab+");
-    if (!file) {
-        printf("Erro ao abrir o arquivo %s.\n", MODBUS_MAP_FILE_PATH);
-    }
-    return file;
-}
-
-void close_modbus_file(FILE *file) {
-    if (file) {
-
-    	file_close(file);
-    }
-}
-
-
-
-// Função para salvar a estrutura MB no arquivo
-cfg_file_status_t save_mb_to_file(const TModbusMap *mb) {
-    // Abra o arquivo para escrita binária
-    FILE_POINTER file = open_modbus_file("wb");
-
-    if (!file) {
-        return CfgFiles_error_unknownError;
-    }
-
-    // Escreva a estrutura MB no arquivo
-    size_t bytes_written = fwrite(mb, sizeof(TModbusMap), 1, file);
-
-    if (bytes_written != 1) {
-
-    	printf("Erro ao escrever no arquivo.\n");
-        close_modbus_file(file);
-        return CfgFiles_error_unknownError;
-    }
-
-    // Feche o arquivo
-    close_modbus_file(file);
-
-    printf("Dados salvos com sucesso no arquivo modbus.map.\n");
-
-    return CfgFiles_success;
-}
-
-
-cfg_file_status_t load_mb_from_file(TModbusMap *mb) {
-    // Abra o arquivo para leitura binária
-    FILE_POINTER file = open_modbus_file("rb");
-    if (!file) {
-        return CfgFiles_error_unknownError;
-    }
-
-    // Leia os dados do arquivo para a estrutura MB
-    size_t bytes_read = fread(mb, sizeof(TModbusMap), 1, file);
-    if (bytes_read != 1) {
-        printf("Erro ao ler do arquivo.\n");
-        close_modbus_file(file);
-        return CfgFiles_error_unknownError;
-    }
-
-    // Feche o arquivo
-    close_modbus_file(file);
-
-    printf("Dados carregados com sucesso do arquivo modbus.map \r\n");
-
-    return CfgFiles_success;
-}
-
-
-
-
-
-
-
-
-
-
-cfg_file_status_t write_to_mb_single_register(TModbusMap *mb, int index, uint16_t value)
 {
-    if (mb == NULL)
-    {
-        printf("Ponteiro para estrutura MB inválido.\n");
-        return CfgFiles_error_invalidParameter;
-    }
+  // Print Remote File Paths
+  char fileName [32] = { 0 };
 
-    // Verifica se o índice está dentro dos limites do array HOLDINGREGISTERS
-    if (index < 0 || index >= TOTAL_VARIAVEIS_HOLDING)
-    {
-        printf("Índice de registro inválido.\n");
-        return CfgFiles_error_invalidParameter;
-    }
+  if (!CfgFilesGeFilePathByIndex(fileIndex, fileName))
+  {
+    return false;
+  }
 
-    // Abrir o arquivo correspondente aos registros no sistema de arquivos LittleFS
-    FILE_POINTER file = open_modbus_file("rb+");
-    if (!file)
-    {
-        printf("Erro ao abrir o arquivo.\n");
-        return CfgFiles_error_fileOperationFailed;
-    }
+  LOG("Updating config file; File Index = %d; File Name: %s", fileIndex, listCfgFiles [fileIndex].name);
 
-    // Calcular a posição do registro no arquivo
-    int position = index * sizeof(uint16_t);
+  // Open/Create file
+  uint8_t *fileDataBuffer = CfgFiles_getBuffer();
+  if (!fileDataBuffer)
+  {
+    return false;
+  }
 
-    // Posicionar o cursor do arquivo na posição do registro
-    if (file_seek(file, position, SEEK_SET) != 0)
-    {
-        printf("Erro ao posicionar o cursor do arquivo.\n");
-        file_close(file);
-        return CfgFiles_error_fileOperationFailed;
-    }
+  size_t fileSize = 0;
+  FILE_POINTER file = NULL;
+  file = file_open((char*) fileName, "w"); //write-only
+  fileSize = file_size(file);
 
-    // Escrever o valor no registro
-    size_t bytes_written = file_write(&value, sizeof(uint16_t), 1, file);
-    if (bytes_written != 1)
-    {
-        printf("Erro ao escrever no arquivo.\n");
-        file_close(file);
-        return CfgFiles_error_fileOperationFailed;
-    }
+  if (!CfgFilesEncode(fileIndex, fileDataBuffer, &fileSize, setDefaultValues))
+  {
+    file_close(file); // error to encode data; close file and continue
+    return false;
+  }
 
-    // Fechar o arquivo
-    if (file_close(file) != 0)
-    {
-        printf("Erro ao fechar o arquivo.\n");
-        return CfgFiles_error_fileOperationFailed;
-    }
+  listCfgFiles [fileIndex].size = file_write(fileDataBuffer, 1, fileSize, file);
 
-    return CfgFiles_success;
+  if (listCfgFiles [fileIndex].size != fileSize)
+  {
+
+    LOG("Data size written in file differs from the size requested; written = %lu bytes | requested = %d bytes", listCfgFiles [fileIndex].size, fileSize);
+  }
+  else
+  {
+
+    return false;
+  }
+
+  return true;
+
+}
+
+
+
+bool CfgFiles_RestoreFactoryDefault()
+{
+  for (int i = 0; i < TOTAL_CFG_FILES; i++)
+  {
+
+    CfgFiles_UpdateCfgFileByIndex(i, false);
+
+  }
+
 }
 
 
 
 
-uint16_t read_from_mb_address(const TModbusMap *mb, int function_index, int array_index) {
 
-    if (mb == NULL) {
-        printf("Ponteiro para estrutura MB inválido.\n");
-        return 0; // ou qualquer outro valor de erro
-    }
 
-    int total_array_sizes[4] = {TOTAL_VARIAVEIS_COILS, TOTAL_VARIAVEIS_INPUT, TOTAL_VARIAVEIS_HOLDING, TOTAL_VARIAVEIS_ESPELHO};
 
-    if (function_index < 0 || function_index >= 4) {
-        printf("Índice de função inválido.\n");
-        return 0; // ou qualquer outro valor de erro
-    }
 
-    if (array_index < 0 || array_index >= total_array_sizes[function_index]) {
-        printf("Índice de array inválido.\n");
-        return 0; // ou qualquer outro valor de erro
-    }
-
-    FILE_POINTER file = file_open(MODBUS_MAP_FILE_PATH, "rb");
-    if (!file) {
-        printf("Erro ao abrir o arquivo.\n");
-        return 0; // ou qualquer outro valor de erro
-    }
-
-    int array_start_position = 0;
-    for (int i = 0; i < function_index; i++) {
-        array_start_position += sizeof(uint16_t) * total_array_sizes[i];
-    }
-
-    int position = array_start_position + sizeof(uint16_t) * array_index;
-
-    if (file_seek(file, position, SEEK_SET) != 0) {
-        printf("Erro ao posicionar o cursor do arquivo.\n");
-        file_close(file);
-        return 0; // ou qualquer outro valor de erro
-    }
-
-    uint16_t value;
-    if (file_read(&value, sizeof(uint16_t), 1, file) != 1) {
-        printf("Erro ao ler do arquivo.\n");
-        file_close(file);
-        return 0; // ou qualquer outro valor de erro
-    }
-
-    file_close(file);
-
-    return value;
-}
