@@ -11,7 +11,7 @@
 #include "cfg_files.h"
 
 
-TModbusMap modbus;
+TModbusMap *ModbusMap;
 
 uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 {
@@ -55,21 +55,17 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 				totalbytes = PresetSingleRegister(msg, ptr); // Grava o valor do HR e monta parte da mensagem
 
 
-
-				save_mb_to_file(&modbus);
-
-
 				//eeprom_write_char ( address, *( ptr ) );
 				//eeprom_write_char ( address + 1, *( ptr + 1 ) );
 
 				if (totalbytes)
 				{ //Implementado para possibilitar a gravacao do Tipo de Hardware (Input Register) via CfgHorus
 
-					if ((modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW] != 0) && (modbus.INPUTREGISTERS[ADD_TIPO_HARDW] != modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW]))
+					if ((ModbusMap->HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW] != 0) && (ModbusMap->INPUTREGISTERS[ADD_TIPO_HARDW] != ModbusMap->HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW]))
 					{
 						//if((modbusMapa.COPIA_TIPO_HARDW != 0) && (modbusMapa.TIPO_HARDW != modbusMapa.COPIA_TIPO_HARDW)){
 
-						modbus.INPUTREGISTERS[ADD_TIPO_HARDW] =modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW];
+						ModbusMap->INPUTREGISTERS[ADD_TIPO_HARDW] = ModbusMap->HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW];
 
 						//modbusMapa.TIPO_HARDW = modbusMapa.COPIA_TIPO_HARDW;
 
@@ -77,6 +73,8 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 
 						//while(eeprom_write_int(END_TIPO_HARDW_EEPROM, MB.TIPO_HARDW));
 					}
+
+					CfgFiles_UpdateCfgFileByIndex(MAP_FILE_IDX, false);
 				}
 #ifdef WATCHDOG
         fWatchDogReset();
@@ -98,14 +96,14 @@ uint16_t InterpreterMODBUS(uint8_t *msg, uint16_t len)
 				if (totalbytes)
 				{ //Implementado para possibilitar a gravacao do Tipo de Hardware (Input Register) via CfgHorus
 
-					if ((modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW] != 0) && (modbus.INPUTREGISTERS[ADD_TIPO_HARDW] != modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW]))
+					if ((ModbusMap->HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW] != 0) && (ModbusMap->INPUTREGISTERS[ADD_TIPO_HARDW] != ModbusMap->HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW]))
 					{
-						modbus.INPUTREGISTERS[ADD_TIPO_HARDW] = modbus.HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW];
+						ModbusMap->INPUTREGISTERS[ADD_TIPO_HARDW] = ModbusMap->HOLDINGREGISTERS[ADD_COPIA_TIPO_HARDW];
 
 						ptr = (uint8_t*) GetAddrInputRegister(ADD_TIPO_HARDW);
 					}
 
-					save_mb_to_file(&modbus);
+				    CfgFiles_UpdateCfgFileByIndex(MAP_FILE_IDX, false);
 				}
 #ifdef WATCHDOG
         fWatchDogReset();
@@ -136,13 +134,13 @@ uint8_t* GetAddrCoilRegister(uint16_t address)
 	{
 
 	case ADD_IN_1:
-		ptr = (uint8_t*) &modbus.COILS[ADD_IN_1];
+		ptr = (uint8_t*) &ModbusMap->COILS[ADD_IN_1];
 		break;
 	case ADD_IN_2:
-		ptr = (uint8_t*) &modbus.COILS[ADD_IN_2];
+		ptr = (uint8_t*) &ModbusMap->COILS[ADD_IN_2];
 		break;
 	case ADD_OUT_1:
-		ptr = (uint8_t*) &modbus.COILS[ADD_OUT_1];
+		ptr = (uint8_t*) &ModbusMap->COILS[ADD_OUT_1];
 		break;
 	}
 	return ptr;
@@ -155,9 +153,9 @@ uint8_t* GetAddrInputRegister(uint16_t address)
 
 	if (address < 256)
 
-		ptr = (uint8_t*) &modbus.INPUTREGISTERS[ADD_IMEI_1 + (address)];
+		ptr = (uint8_t*) &ModbusMap->INPUTREGISTERS[ADD_IMEI_1 + (address)];
 	else
-		ptr = (uint8_t*) &modbus.ESPELHO[ADD_IMEI_1 + ((address - 256))];
+		ptr = (uint8_t*) &ModbusMap->ESPELHO[ADD_IMEI_1 + ((address - 256))];
 	return ptr;
 }
 
@@ -168,11 +166,10 @@ uint8_t* GetAddrHoldingRegister(uint16_t address)
 
 	if (address < 500)
 
-		ptr = (uint8_t*) &modbus.HOLDINGREGISTERS[ADD_TEMVALCONGPR + (address)];
+		ptr = (uint8_t*) &ModbusMap->HOLDINGREGISTERS[ADD_TEMVALCONGPR + (address)];
 	//ptr = (uint8_t*) &modbusMapa.TEMVALCONGPR + (address * 2);
 	else
-		ptr = (uint8_t*) &modbus.HOLDINGREGISTERS[(ADD_NUMSER_1 - 130)
-				+ (address - 500)];
+		ptr = (uint8_t*) &ModbusMap->HOLDINGREGISTERS[(ADD_NUMSER_1 - 130) + (address - 500)];
 	//ptr = (uint8_t*) &modbusMapa.NUMSER_1 + ((address - 500) * 2);
 	return ptr;
 }
@@ -213,84 +210,42 @@ uint8_t SeparaMensagensMODBUS(uint8_t *bufMsg, int tamanho)
 
 
 
-void CreateDefaultModbusMap (void *fileDataBuffer, TModbusMap * modbusMap)
+void CreateDefaultModbusMap(void *fileDataBuffer, TModbusMap *modbusMap)
 {
-  if(modbusMap == NULL)
-
+  if (modbusMap == NULL)
     return;
-  //memset(modbusMap, 0, sizeof(TModbusMap));
-
-
   memset(fileDataBuffer, 0, (1024 * 2));
 
-  for (int var = 0; var < TOTAL_VARIAVEIS_INPUT; ++var) {
+  for (int var = 0; var < TOTAL_VARIAVEIS_INPUT; ++var)
+  {
 
-    modbusMap->INPUTREGISTERS[var] = 1;
+    modbusMap->INPUTREGISTERS [var] = 1;
   }
 
-  for (int var = 0; var < TOTAL_VARIAVEIS_HOLDING; ++var) {
+  for (int var = 0; var < TOTAL_VARIAVEIS_HOLDING; ++var)
+  {
 
-    modbusMap->HOLDINGREGISTERS[var] = 2;
+    modbusMap->HOLDINGREGISTERS [var] = 2;
   }
 
+  for (int var = 0; var < TOTAL_VARIAVEIS_ESPELHO; ++var)
+  {
 
-  for (int var = 0; var < TOTAL_VARIAVEIS_ESPELHO; ++var) {
-
-    modbusMap->ESPELHO[var] = 3;
+    modbusMap->ESPELHO [var] = 3;
   }
 
   memcpy(fileDataBuffer, modbusMap, sizeof(TModbusMap));
 }
 
 
-
-
-void LoadMapFromFile ()
+void ModbusInit ()
 {
-	//load_mb_from_file(&modbus);
+  ModbusMap = &modbusMapFile;
 
 }
 
 
-void LoadHoldingRegisterRAM(void)
-{
 
-	for (int var = 0; var < TOTAL_VARIAVEIS_HOLDING; ++var)
-	{
 
-		modbus.HOLDINGREGISTERS[var] = var + 3;
-	}
-}
 
-void LoadInputRegisterRAM(void)
-{
-
-	for (int var = 0; var < TOTAL_VARIAVEIS_INPUT; ++var)
-	{
-
-		modbus.INPUTREGISTERS[var] = var + 10;
-	}
-
-}
-
-void LoadCoilRegisterRAM(void)
-{
-
-	for (int var = 0; var < TOTAL_VARIAVEIS_COILS; ++var)
-	{
-
-		modbus.COILS[var] = var;
-	}
-
-}
-
-void LoadEspelhoRAM(void)
-{
-
-	for (int var = 0; var < TOTAL_VARIAVEIS_ESPELHO; ++var)
-	{
-		modbus.ESPELHO[var] = var + 5;
-	}
-
-}
 

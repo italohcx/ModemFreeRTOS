@@ -1401,6 +1401,6 @@ void LoadInputRegisterRAM(void);
 void LoadCoilRegisterRAM(void);
 void LoadEspelhoRAM(void);
 void CreateDefaultModbusMap (void *fileDataBuffer, TModbusMap * modbusMap);
-
+void ModbusInit ();
 
 #endif /* THIRD_PARTY_MODBUS_MODBUS_MAP_H_ */

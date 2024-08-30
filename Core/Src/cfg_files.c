@@ -21,9 +21,7 @@
 #define LOG2 LOG
 
 
-
-
-TModbusMap modbusMap;
+TModbusMap modbusMapFile;
 
 
 typedef struct Cfg_buffer_t
@@ -198,7 +196,14 @@ static bool CfgFilesEncode(uint16_t fileIndex, void *fileDataBuffer, size_t *fil
       TModbusMap *modbusFile = (TModbusMap *) listCfgFiles[fileIndex].fileContent;
 
        if (setDefaultValues)
+       {
          CreateDefaultModbusMap(fileDataBuffer, modbusFile);
+
+       }else {
+
+         memcpy(fileDataBuffer, modbusFile, sizeof(TModbusMap));
+       }
+
        *fileSize = sizeof(TModbusMap);
 
        return true;
@@ -223,8 +228,6 @@ static bool CfgFilesEncode(uint16_t fileIndex, void *fileDataBuffer, size_t *fil
 
 
 
-
-
 /**
  * @fn void CfgFilesInit()
  * @brief  Initializes control struct list for Configuration Files Management
@@ -240,7 +243,7 @@ void CfgFilesInit()
   //                    Fill List of Configuration Files
   //------------------------------------------------------------------------------------
   //             FILE_INDEX     FILE_NAME              DIR_NAME        TYPE_TIPE
-  SetListCfgFile(MAP_FILE_IDX,  MODBUS_MAP_FILE_PATH,  MAP_DIR_PATH,   &modbusMap);
+  SetListCfgFile(MAP_FILE_IDX,  MODBUS_MAP_FILE_PATH,  MAP_DIR_PATH,   &modbusMapFile);
   SetListCfgFile(COMM_FILE_IDX, COMM_FILE,             CFG_DIR_PATH,   NULL);
   SetListCfgFile(BOOT_FILE_IDX, BOOT_FILE,             BOOT_DIR_PATH,  NULL);
   //------------------------------------------------------------------------------------
@@ -340,7 +343,7 @@ bool CfgFiles_UpdateCfgFileByIndex(uint16_t fileIndex, bool setDefaultValues)
     return false;
   }
 
-  LOG("Updating config file; File Index = %d; File Name: %s", fileIndex, listCfgFiles [fileIndex].name);
+  LOG("Updating config file; File Index = %d; File Name: %s", fileIndex, fileName);
 
   // Open/Create file
   uint8_t *fileDataBuffer = CfgFiles_getBuffer();
@@ -360,6 +363,7 @@ bool CfgFiles_UpdateCfgFileByIndex(uint16_t fileIndex, bool setDefaultValues)
     return false;
   }
 
+  // Write file content
   listCfgFiles [fileIndex].size = file_write(fileDataBuffer, 1, fileSize, file);
 
   if (listCfgFiles [fileIndex].size != fileSize)
@@ -367,19 +371,14 @@ bool CfgFiles_UpdateCfgFileByIndex(uint16_t fileIndex, bool setDefaultValues)
 
     LOG("Data size written in file differs from the size requested; written = %lu bytes | requested = %d bytes", listCfgFiles [fileIndex].size, fileSize);
   }
-  else
-  {
 
-    return false;
-  }
-
+  file_close(file);
+  CfgFiles_freeBuffer(fileDataBuffer);
   return true;
 
 }
 
-
-
-bool CfgFiles_RestoreFactoryDefault()
+void CfgFiles_RestoreFactoryDefault()
 {
   for (int i = 0; i < TOTAL_CFG_FILES; i++)
   {
