@@ -47,7 +47,7 @@ void AdapterSSD1306_LoadMenus()
 	MenuData_t menuItems[NUM_MENU_PAGES] =
 	{
 		{{"IPAD:0.0.0.0", "MASK:0.0.0.0", "GWAY:0.0.0.0"}},  // Menu 1
-		{{"CFG:DC Port:0", "TX: 100bytes", "RX: 340Bytes"}},
+		{{"CFG:DC:PORT:0", "RX: 0 BYTES", "TX: 0 BYTES"}},
 		{{"ROT:Port:22000","SUP:Port:22001", "FAB:Port:22002"}}// Menu 2
 		// Adicione mais menus aqui, se necessário
 	};
@@ -60,8 +60,6 @@ void AdapterSSD1306_LoadMenus()
 
 	// Escreve as informações do menu no display
 	AdapterSSD1306_WriteMenu(&menuDisplay);
-
-
 }
 
 
@@ -80,6 +78,19 @@ void AdapterSSD1306_SetDisplayColor(bool dark_mode)
     }
     osDelay(50);
 }
+
+void AdapterSSD1306_Refresh(uint16_t page, uint16_t line)
+{
+
+	MenuData_t menu = { 0 };
+
+	snprintf(menu.items[page][line], sizeof(menu.items[page][line]),"                    ");
+
+	portENTER_CRITICAL();
+	AdapterSSD1306_WriteMenu(&menu);
+	portEXIT_CRITICAL();
+}
+
 
 void AdapterSSD1306_WriteMenu(const MenuData_t *menu_data)
 {

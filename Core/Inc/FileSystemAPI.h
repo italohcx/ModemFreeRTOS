@@ -15,6 +15,10 @@
 #define DIRECTORY_TYPE         lfs_dir_t
 #define FILESYSTEM_FOLDER_MAP           "map"
 #define FILESYSTEM_FOLDER_CONFIG        "cfg"
+#define FILESYSTEM_FOLDER_BOOTLOADER    "boot"
+
+
+
 
 #define MAX_OPEN_FILES           (4)
 
@@ -147,5 +151,7 @@ int dir_open(const char *path, lfs_dir_t *dir);
 int dir_read(lfs_dir_t *dir, struct lfs_info *info);
 
 int dir_close(lfs_dir_t *dir);
+
+int list_files(const char *path);
 
 

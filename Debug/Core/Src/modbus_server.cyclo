@@ -1,5 +1,7 @@
-../Core/Src/modbus_server.c:31:13:ModbusStatusInfo	2
-../Core/Src/modbus_server.c:48:16:ModbusHandleConnection	4
-../Core/Src/modbus_server.c:93:6:Modbus_activateTcpKeepAlive	4
-../Core/Src/modbus_server.c:108:6:ModbusTcpSeverTask	9
-../Core/Src/modbus_server.c:188:6:ModbusServerInit	1
+../Core/Src/modbus_server.c:41:13:ModbusStatusInfo	2
+../Core/Src/modbus_server.c:60:13:formatBytes	3
+../Core/Src/modbus_server.c:77:13:Modbus_infoPacket	1
+../Core/Src/modbus_server.c:93:16:ModbusHandleConnection	4
+../Core/Src/modbus_server.c:154:6:Modbus_activateTcpKeepAlive	4
+../Core/Src/modbus_server.c:169:6:ModbusTcpSeverTask	9
+../Core/Src/modbus_server.c:254:6:ModbusServerInit	1

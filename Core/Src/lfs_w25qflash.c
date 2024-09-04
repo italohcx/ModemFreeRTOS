@@ -8,8 +8,8 @@
 #include "lfs_w25qflash.h"
 #define LOG printf
 
-//#define LOG2(...)
-#define LOG2 printf
+#define LOG2(...)
+//#define LOG2 printf
 
 #ifdef LFS_THREADSAFE
 #include "cmsis_os.h"

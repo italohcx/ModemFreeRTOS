@@ -49,7 +49,7 @@ extern "C"
 // code footprint
 
 #ifndef LFS_THREADSAFE
-#define LFS_THREADSAFE
+//#define LFS_THREADSAFE
 #endif
 
 // Logging functions

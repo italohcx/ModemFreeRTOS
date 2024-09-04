@@ -15,8 +15,15 @@
 #include "FileSystemAPI.h"
 #include "modbus_map.h"
 
+#define MAP_DIR_PATH       FILESYSTEM_FOLDER_MAP"/"
 #define CFG_DIR_PATH       FILESYSTEM_FOLDER_CONFIG"/"
-#define TOTAL_CFG_FILES    (2)
+#define BOOT_DIR_PATH      FILESYSTEM_FOLDER_BOOTLOADER"/"
+#define TOTAL_CFG_FILES    (3)
+
+#define MAX_SIZE_FILE_NAME   32
+#define MAX_SIZE_DIR_PATH    8
+
+
 
 typedef enum {
     CfgFiles_success = 0,
@@ -28,13 +35,34 @@ typedef enum {
 } cfg_file_status_t;
 
 /// Enum for file index definition into configuration file control structure
+
+
+
 typedef enum CfgFileIndex
 {
   MAP_FILE_IDX = 0,
   COMM_FILE_IDX,
+  BOOT_FILE_IDX,
 
 } TCfgFileIndex;
 
 
+typedef struct _CFG_FILE
+{
+	char name[MAX_SIZE_FILE_NAME];
+	uint32_t size;
+	bool changed;
+	void *file;
+	bool isOpened;
+	char dirPath[MAX_SIZE_DIR_PATH];
+	void *fileContent;
+} TCfgFile;
+
+
+extern TModbusMap modbusMapFile;
+
+bool CfgFiles_UpdateCfgFileByIndex(uint16_t fileIndex, bool setDefaultValues);
+
+void CfgFilesInit();
 
 #endif /* INC_CFG_FILES_H_ */

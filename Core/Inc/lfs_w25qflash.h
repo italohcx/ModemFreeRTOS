@@ -19,9 +19,9 @@
 
 #define LITTLEFS_BLOCK_CYCLES 100
 /* Minimum block cache size definition */
-#define LITTLEFS_CACHE_SIZE 256
+#define LITTLEFS_CACHE_SIZE 512
 /* Minimum lookahead buffer size definition */
-#define LITTLEFS_LOOKAHEAD_SIZE 16
+#define LITTLEFS_LOOKAHEAD_SIZE 256
 
 /***********************************************************************************************************************
  * Functions

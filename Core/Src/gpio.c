@@ -52,11 +52,13 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, SPI2_FLASH_CS_Pin|SPI2_NRF_CS_Pin|LED1_Pin|LED2_Pin
-                          |LED3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOE, SPI2_FLASH_CS_Pin|SPI2_NRF_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, SPI1_DC_Pin|SPI1_RESET_Pin|SPI1_CS_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOE, LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : PEPin PEPin PEPin PEPin
                            PEPin */

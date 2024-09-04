@@ -29,6 +29,4 @@ void ModbusServerInit();
 
 void ModbusServerTaskFunc(void *pvParameters);
 
-
-
 #endif /* INC_MODBUS_SERVER_H_ */

@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include <AdapterSSD1306.h>
 #include "FreeRTOS.h"
 #include "task.h"
 #include "main.h"
@@ -31,11 +30,13 @@
 #include "sockets.h"
 #include "stdbool.h"
 #include "ssd1306.h"
+#include "AdapterSSD1306.h"
+#include "modbus_server.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+extern TOperationMode operationMode;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -55,6 +56,7 @@ extern struct netif gnetif;
 /* USER CODE END Variables */
 osThreadId ethernetStatusTHandle;
 osThreadId buttonsTaskHandle;
+osThreadId ledsTaskHandle;
 osMessageQId menuQueueHandle;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -64,6 +66,7 @@ osMessageQId menuQueueHandle;
 
 void EthernetStatusTask(void const * argument);
 void ButtonsTask(void const * argument);
+void LedsTask(void const * argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -140,8 +143,16 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(buttonsTask, ButtonsTask, osPriorityBelowNormal, 0, 1024);
   buttonsTaskHandle = osThreadCreate(osThread(buttonsTask), NULL);
 
+
+
+  /* definition and creation of ledsTask */
+  osThreadDef(ledsTask, LedsTask, osPriorityIdle, 0, 512);
+  ledsTaskHandle = osThreadCreate(osThread(ledsTask),(void*) operationMode);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+
+  HorusOperationMode(operationMode);
 
 
   /* USER CODE END RTOS_THREADS */
@@ -155,15 +166,16 @@ void MX_FREERTOS_Init(void) {
   * @retval None
  */
 /* USER CODE END Header_EthernetStatusTask */
-void EthernetStatusTask(void const *argument)
+void EthernetStatusTask(void const * argument)
 {
-	/* init code for LWIP */
-	MX_LWIP_Init();
-	/* USER CODE BEGIN EthernetStatusTask */
+  /* init code for LWIP */
+  MX_LWIP_Init();
+  /* USER CODE BEGIN EthernetStatusTask */
 	MenuData_t menu_data = {0};
 	char ipad[21] = {0};
 	char mask[21] = {0};
 	char gway[21] = {0};
+
 
 	/* Infinite loop */
 	for (;;)
@@ -184,12 +196,11 @@ void EthernetStatusTask(void const *argument)
 				AdapterSSD1306_SendDataToMenuQueueUpdate(&menu_data);
 				osDelay(100);
 			}
-
 		}
-		/* USER CODE END EthernetStatusTask */
-		osDelay(1);
-	}
 
+		osDelay(100);
+	}
+  /* USER CODE END EthernetStatusTask */
 }
 
 /* USER CODE BEGIN Header_ButtonsTask */
@@ -199,15 +210,14 @@ void EthernetStatusTask(void const *argument)
 * @retval None
 */
 /* USER CODE END Header_ButtonsTask */
-void ButtonsTask(void const *argument)
+void ButtonsTask(void const * argument)
 {
-	/* USER CODE BEGIN ButtonsTask */
+  /* USER CODE BEGIN ButtonsTask */
 	/* Infinite loop */
 
 	bool activeDarkMode = false;
 	for (;;)
 	{
-
 		if (HAL_GPIO_ReadPin(BT_SW1_GPIO_Port, BT_SW1_Pin) == RESET)
 		{
 
@@ -242,15 +252,74 @@ void ButtonsTask(void const *argument)
 
 			}
 
+		    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED3_Pin);
 			osDelay(250);
 		}
 
 		osDelay(10);
 	}
-	/* USER CODE END ButtonsTask */
+  /* USER CODE END ButtonsTask */
+}
+
+/* USER CODE BEGIN Header_LedsTask */
+/**
+* @brief Function implementing the ledsTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_LedsTask */
+void LedsTask(void const *argument)
+{
+  /* USER CODE BEGIN LedsTask */
+
+  /* Infinite loop */
+
+  TOperationMode operationMode = (TOperationMode) argument;
+
+  for (;;)
+  {
+
+	switch (operationMode)
+	{
+	case NET_MODE:
+	  HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+	  osDelay(1000);
+	  break;
+
+	case CFG_MODE:
+	  for (int i = 0; i < 2; i++)
+	  {
+		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, RESET);
+		osDelay(250);
+		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+		osDelay(250);
+	  }
+	  osDelay(1000);
+	  break;
+
+	case BOOT_MODE:
+
+	  for (int i = 0; i < 3; i++)
+	  {
+		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, RESET);
+		osDelay(250);
+		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+		osDelay(250);
+	  }
+	  osDelay(1000);
+	  break;
+
+	default:
+
+	  break;
+	}
+  }
+
+  /* USER CODE END LedsTask */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+
 
 /* USER CODE END Application */

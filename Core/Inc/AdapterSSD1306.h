@@ -42,6 +42,7 @@ void AdapterSSD1306_WriteMenu(const MenuData_t *menu_data);
 void AdapterSSD1306_WriteLine(const char *text, int line_number);
 void AdapterSSD1306_UpdateTask(void const *argument);
 void AdapterSSD1306_SendDataToMenuQueueUpdate(const MenuData_t *menu_data);
+void AdapterSSD1306_Refresh(uint16_t page, uint16_t line);
 void AdapterSSD1306_InitUpdateTask();
 bool AdapterSSD1306_RefreshDisplay(MenuData_t *receivedMenu, MenuData_t *menuDisplay);
 void AdapterSSD1306_DarkMode(bool enable);

@@ -1,10 +1,7 @@
-../Middlewares/Third_Party/Modbus/modbus_map.c:17:10:InterpreterMODBUS	15
-../Middlewares/Third_Party/Modbus/modbus_map.c:131:10:GetAddrCoilRegister	5
-../Middlewares/Third_Party/Modbus/modbus_map.c:152:10:GetAddrInputRegister	2
-../Middlewares/Third_Party/Modbus/modbus_map.c:165:10:GetAddrHoldingRegister	2
-../Middlewares/Third_Party/Modbus/modbus_map.c:181:9:SeparaMensagensMODBUS	8
-../Middlewares/Third_Party/Modbus/modbus_map.c:220:6:LoadMapFromFile	1
-../Middlewares/Third_Party/Modbus/modbus_map.c:227:6:LoadHoldingRegisterRAM	2
-../Middlewares/Third_Party/Modbus/modbus_map.c:237:6:LoadInputRegisterRAM	2
-../Middlewares/Third_Party/Modbus/modbus_map.c:248:6:LoadCoilRegisterRAM	2
-../Middlewares/Third_Party/Modbus/modbus_map.c:259:6:LoadEspelhoRAM	2
+../Middlewares/Third_Party/Modbus/modbus_map.c:16:10:InterpreterMODBUS	15
+../Middlewares/Third_Party/Modbus/modbus_map.c:128:10:GetAddrCoilRegister	5
+../Middlewares/Third_Party/Modbus/modbus_map.c:149:10:GetAddrInputRegister	2
+../Middlewares/Third_Party/Modbus/modbus_map.c:162:10:GetAddrHoldingRegister	2
+../Middlewares/Third_Party/Modbus/modbus_map.c:177:9:SeparaMensagensMODBUS	8
+../Middlewares/Third_Party/Modbus/modbus_map.c:213:6:CreateDefaultModbusMap	5
+../Middlewares/Third_Party/Modbus/modbus_map.c:241:6:ModbusInit	1

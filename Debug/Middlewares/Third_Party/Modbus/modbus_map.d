@@ -2,11 +2,11 @@ Middlewares/Third_Party/Modbus/modbus_map.o: \
  ../Middlewares/Third_Party/Modbus/modbus_map.c \
  ../Middlewares/Third_Party/Modbus/modbus_map.h \
  ../Middlewares/Third_Party/Modbus/modbus.h ../Core/Inc/FileSystemAPI.h \
- /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
- /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
- /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
  ../Core/Inc/lfs_w25qflash.h \
- /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h \
  ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -58,15 +58,15 @@ Middlewares/Third_Party/Modbus/modbus_map.o: \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/Inc/FileSystemAPI.h \
- /home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h
+ /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h
 ../Middlewares/Third_Party/Modbus/modbus_map.h:
 ../Middlewares/Third_Party/Modbus/modbus.h:
 ../Core/Inc/FileSystemAPI.h:
-/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
-/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
-/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h:
 ../Core/Inc/lfs_w25qflash.h:
-/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/w25Qxx/w25qxx.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -119,4 +119,4 @@ Middlewares/Third_Party/Modbus/modbus_map.o: \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Core/Inc/FileSystemAPI.h:
-/home/italo/STM32CubeIDE/workspace/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:

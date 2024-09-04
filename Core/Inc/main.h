@@ -52,7 +52,23 @@ extern "C" {
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
+
+
 /* USER CODE BEGIN EFP */
+
+
+typedef enum operationMode
+{
+
+  NET_MODE = 0,
+  CFG_MODE,
+  BOOT_MODE,
+
+} TOperationMode;
+
+
+void HorusOperationMode(TOperationMode operationMode);
+void HorusIhmInit();
 
 /* USER CODE END EFP */
 

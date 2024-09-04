@@ -5,9 +5,3 @@
 ../Core/Src/lfs_w25qflash.c:123:5:lfs_w25qflash_sync	1
 ../Core/Src/lfs_w25qflash.c:129:5:lfs_get_default_config	1
 ../Core/Src/lfs_w25qflash.c:138:5:lfs_storage_init	1
-../Core/Src/lfs_w25qflash.c:189:17:osKernelGetState	3
-../Core/Src/lfs_w25qflash.c:215:9:osKernelLock	4
-../Core/Src/lfs_w25qflash.c:243:9:osKernelUnlock	6
-../Core/Src/lfs_w25qflash.c:276:9:osKernelRestoreLock	8
-../Core/Src/lfs_w25qflash.c:321:5:lfs_lock	3
-../Core/Src/lfs_w25qflash.c:341:5:lfs_unlock	3

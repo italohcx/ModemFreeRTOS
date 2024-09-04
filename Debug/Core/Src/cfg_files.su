@@ -1,6 +1,10 @@
-../Core/Src/cfg_files.c:14:7:open_modbus_file	24	static
-../Core/Src/cfg_files.c:23:6:close_modbus_file	16	static
-../Core/Src/cfg_files.c:33:19:save_mb_to_file	24	static
-../Core/Src/cfg_files.c:60:19:load_mb_from_file	24	static
-../Core/Src/cfg_files.c:92:19:write_to_mb_single_register	40	static
-../Core/Src/cfg_files.c:148:10:read_from_mb_address	72	static
+../Core/Src/cfg_files.c:49:10:CfgFiles_getBuffer	16	static
+../Core/Src/cfg_files.c:68:6:CfgFiles_freeBuffer	24	static
+../Core/Src/cfg_files.c:83:6:CfgFiles_cleanBuffers	16	static
+../Core/Src/cfg_files.c:102:6:CfgFilesGeFilePathByIndex	16	static
+../Core/Src/cfg_files.c:114:13:SetListCfgFile	24	static
+../Core/Src/cfg_files.c:131:13:CfgFilesDecodeFiles	32	static
+../Core/Src/cfg_files.c:189:13:CfgFilesEncode	32	static
+../Core/Src/cfg_files.c:236:6:CfgFilesInit	2104	static
+../Core/Src/cfg_files.c:335:6:CfgFiles_UpdateCfgFileByIndex	72	static
+../Core/Src/cfg_files.c:381:6:CfgFiles_RestoreFactoryDefault	16	static

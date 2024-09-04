@@ -17,7 +17,6 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include <AdapterSSD1306.h>
 #include "main.h"
 #include "cmsis_os.h"
 #include "i2c.h"
@@ -33,7 +32,8 @@
 #include "modbus_server.h"
 #include "cfg_files.h"
 #include "ssd1306.h"
-#include "ssd1306_tests.h"
+#include "AdapterSSD1306.h"
+#include "cfg_files.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,13 +54,16 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+TOperationMode operationMode = {0};
 
+uint16_t initTimeou = 0;
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -97,28 +100,18 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-	MX_GPIO_Init();
-	MX_SPI2_Init();
-	MX_USART1_UART_Init();
-	MX_I2C1_Init();
-	/* USER CODE BEGIN 2 */
-
-	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, RESET);
-	HAL_Delay(50);
-	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, RESET);
-	HAL_Delay(50);
-	HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, RESET);
-	HAL_Delay(50);
-	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, SET);
-	HAL_Delay(50);
-	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
-	HAL_Delay(50);
+  MX_GPIO_Init();
+  MX_SPI2_Init();
+  MX_USART1_UART_Init();
+  MX_I2C1_Init();
 
 
-
-	FileSystemInit();
-	ModbusServerInit();
-	AdapterSSD1306_Init();
+  /* USER CODE BEGIN 2 */
+  HorusIhmInit();
+  FileSystemInit();
+  CfgFilesInit();
+  ModbusInit();
+  AdapterSSD1306_Init();
 
 
   /* USER CODE END 2 */
@@ -188,6 +181,97 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+int __io_putchar(int ch)
+{
+//	return ITM_SendChar(ch);
+  unsigned char byte = ch;
+  if (HAL_UART_Transmit(&huart1, &byte, 1, 100) != HAL_OK)
+  {
+
+    return 0;
+  }
+  return ch;
+}
+
+void HorusOperationMode(TOperationMode operationMode)
+{
+  switch (operationMode)
+  {
+  case NET_MODE:
+
+	break;
+
+  case CFG_MODE:
+
+	ModbusServerInit();
+
+	break;
+
+  case BOOT_MODE:
+
+	break;
+
+  default:
+
+	break;
+  }
+
+}
+
+
+void HorusIhmInit()
+{
+
+  while (initTimeou < 100)
+  {
+	HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+	HAL_Delay(30);
+	initTimeou++;
+  }
+
+  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, RESET);
+  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, RESET);
+  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, RESET);
+
+  initTimeou = 0;
+
+  while (initTimeou < 20)
+  {
+
+	if (HAL_GPIO_ReadPin(BT_SW3_GPIO_Port, BT_SW3_Pin) == 0)
+	{
+	  operationMode = NET_MODE;
+
+	  break;
+	}
+
+	if (HAL_GPIO_ReadPin(BT_SW2_GPIO_Port, BT_SW2_Pin) == 0)
+	{
+	  operationMode = CFG_MODE;
+
+	  break;
+
+	}
+
+	if (HAL_GPIO_ReadPin(BT_SW1_GPIO_Port, BT_SW1_Pin) == 0)
+	{
+	  operationMode = BOOT_MODE;
+	  break;
+	}
+
+	initTimeou++;
+	HAL_Delay(100);
+  }
+
+  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, SET);
+  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
+  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+
+}
+
+
+
+
 /* USER CODE END 4 */
 
 /**
@@ -207,6 +291,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
+
 
   /* USER CODE END Callback 1 */
 }

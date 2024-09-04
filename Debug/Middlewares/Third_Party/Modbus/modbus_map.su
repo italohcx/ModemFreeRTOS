@@ -1,10 +1,7 @@
-../Middlewares/Third_Party/Modbus/modbus_map.c:17:10:InterpreterMODBUS	32	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:131:10:GetAddrCoilRegister	24	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:152:10:GetAddrInputRegister	24	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:165:10:GetAddrHoldingRegister	24	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:181:9:SeparaMensagensMODBUS	24	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:220:6:LoadMapFromFile	8	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:227:6:LoadHoldingRegisterRAM	16	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:237:6:LoadInputRegisterRAM	16	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:248:6:LoadCoilRegisterRAM	16	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:259:6:LoadEspelhoRAM	16	static
+../Middlewares/Third_Party/Modbus/modbus_map.c:16:10:InterpreterMODBUS	32	static
+../Middlewares/Third_Party/Modbus/modbus_map.c:128:10:GetAddrCoilRegister	24	static
+../Middlewares/Third_Party/Modbus/modbus_map.c:149:10:GetAddrInputRegister	24	static
+../Middlewares/Third_Party/Modbus/modbus_map.c:162:10:GetAddrHoldingRegister	24	static
+../Middlewares/Third_Party/Modbus/modbus_map.c:177:9:SeparaMensagensMODBUS	24	static
+../Middlewares/Third_Party/Modbus/modbus_map.c:213:6:CreateDefaultModbusMap	32	static
+../Middlewares/Third_Party/Modbus/modbus_map.c:241:6:ModbusInit	4	static

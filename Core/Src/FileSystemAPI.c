@@ -68,7 +68,7 @@ int FileSystemInit()
 	    return status;
 	  }
 
-	  LOG2("OK");
+	  LOG2("File system start.");
 
   lfs_get_default_config(&cfg);
 
@@ -79,7 +79,7 @@ int FileSystemInit()
   }
 
 
-  LOG2("Montando sistema de arquivos ... ");
+  LOG2("Mount file system  ... ");
 
   status = lfs_mount(&lfs, &cfg);
   if (status)
@@ -89,7 +89,7 @@ int FileSystemInit()
     if (status == LFS_ERR_CORRUPT)
     {
       // Formata o sistema de arquivos
-    	LOG2("Formatando sistema de arquivos ... ");
+    	LOG2("Format file system ... ");
       status = lfs_format(&lfs, &cfg);
       if (status)
       {
@@ -105,6 +105,9 @@ int FileSystemInit()
 
     // Cria diretório de configurações
     lfs_mkdir(&lfs, FILESYSTEM_FOLDER_MAP);
+    lfs_mkdir(&lfs, FILESYSTEM_FOLDER_CONFIG);
+    lfs_mkdir(&lfs,  FILESYSTEM_FOLDER_BOOTLOADER);
+    list_dir();
 
   }
 
@@ -442,6 +445,75 @@ int file_exists(const char *path)
 
   return status;
 }
+
+
+
+int list_dir()
+
+{
+	lfs_dir_t dir;
+	struct lfs_info info;
+	const char *path = "/"; // O caminho do diretório raiz ou outro caminho que deseja listar
+
+	// Abra o diretório
+	int err = lfs_dir_open(&lfs, &dir, path);
+	if (err)
+	{
+		printf("Erro ao abrir o diretório: %d\r\n", err);
+	}
+	else
+	{
+		printf("Listando diretórios em: %s \r\n", path);
+
+		// Leia as entradas no diretório
+		while (lfs_dir_read(&lfs, &dir, &info) > 0)
+		{
+			if (info.type == LFS_TYPE_DIR)
+			{
+				printf("%s \r\n", info.name);
+			}
+		}
+
+		// Feche o diretório
+		// Feche o diretório
+		lfs_dir_close(&lfs, &dir);
+	}
+
+}
+
+int list_files(const char *path)
+
+{
+	int res;
+	lfs_dir_t dir;
+	struct lfs_info info;
+
+	// Abra o diretório
+	int err = lfs_dir_open(&lfs, &dir, path);
+
+	if (err)
+	{
+		printf("Erro ao abrir o diretório: %d\r\n", err);
+	}
+	else
+	{
+		printf("Listando diretórios em: %s \r\n", path);
+
+		while ((res = lfs_dir_read(&lfs, &dir, &info)) > 0)
+		{
+
+			if (info.type == LFS_TYPE_REG)
+			{
+				printf("Arquivo: %s, Tamanho: %ld bytes\n", info.name, info.size);
+			}
+		}
+
+		lfs_dir_close(&lfs, &dir);
+	}
+
+	return res;
+}
+
 
 /**
  * @fn int file_ls(const char*, void*, uint8_t(*)(void*, uint8_t*))
