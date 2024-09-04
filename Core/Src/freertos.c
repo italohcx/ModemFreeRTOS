@@ -32,6 +32,7 @@
 #include "ssd1306.h"
 #include "AdapterSSD1306.h"
 #include "modbus_server.h"
+#include "logger.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -151,6 +152,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+
 
   HorusOperationMode(operationMode);
 

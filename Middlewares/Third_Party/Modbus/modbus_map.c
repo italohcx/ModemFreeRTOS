@@ -238,6 +238,8 @@ void CreateDefaultModbusMap(void *fileDataBuffer, TModbusMap *modbusMap)
 }
 
 
+
+
 void ModbusInit ()
 {
   ModbusMap = &modbusMapFile;

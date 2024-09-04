@@ -58,7 +58,8 @@ Middlewares/Third_Party/Modbus/modbus_map.o: \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/Inc/FileSystemAPI.h \
- /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h
+ /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h \
+ ../Core/Inc/logger.h
 ../Middlewares/Third_Party/Modbus/modbus_map.h:
 ../Middlewares/Third_Party/Modbus/modbus.h:
 ../Core/Inc/FileSystemAPI.h:
@@ -120,3 +121,4 @@ Middlewares/Third_Party/Modbus/modbus_map.o: \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Core/Inc/FileSystemAPI.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:
+../Core/Inc/logger.h:

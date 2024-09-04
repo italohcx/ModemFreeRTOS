@@ -9,10 +9,11 @@
 #include "cfg_files.h"
 #include "modbus.h"
 
+
 #define MODBUS_MAP_FILE_PATH "modbus.map"
 #define COMM_FILE            "comm.map"
 #define BOOT_FILE            "boot.bin"
-
+#define LOG_FILE_CONFIG      "log-config.bin"
 
 //#define LOG(...)
 #define LOG(fmt, ...) printf(fmt "\r\n", ##__VA_ARGS__)
@@ -22,6 +23,7 @@
 
 
 TModbusMap modbusMapFile;
+Log_config logConfigFile;
 
 
 typedef struct Cfg_buffer_t
@@ -135,94 +137,124 @@ static void CfgFilesDecodeFiles(uint16_t fileIndex, void *fileDataBuffer, size_t
 
   switch (fileIndex)
   {
-    case MAP_FILE_IDX:
-    {
-      size = sizeof(TModbusMap);
-      file = pvPortMalloc(size);
-      memcpy(file, fileDataBuffer, size);
+  case MAP_FILE_IDX:
+  {
+	size = sizeof(TModbusMap);
+	file = pvPortMalloc(size);
+	memcpy(file, fileDataBuffer, size);
 
-      break;
-    }
-
-    case COMM_FILE_IDX:
-      // Implementação para COMM_FILE_IDX
-      break;
-
-    case BOOT_FILE_IDX:
-      // Implementação para BOOT_FILE_IDX
-      break;
-
-    default:
-      break;
+	break;
   }
 
+  case COMM_FILE_IDX:
+	// Implementação para COMM_FILE_IDX
+	break;
 
+  case BOOT_FILE_IDX:
+	// Implementação para BOOT_FILE_IDX
+	break;
+
+  case LOG_FILE_IDX:
+
+	size = sizeof(Log_config);
+	file = pvPortMalloc(size);
+	memcpy(file, fileDataBuffer, size);
+
+	break;
+
+  default:
+	break;
+  }
 
   if (file)
   {
-    if (size > 0)
-    {
-      if (isInitialDecode)
-      {
-        // Fill file message with decoded data
-        memcpy(listCfgFiles [fileIndex].fileContent, file, size);
-      }
-      else
-      {
-        // Compares current message to the new decoded message
-        if (memcmp(listCfgFiles [fileIndex].fileContent, file, size) != 0)
-        {
-          // Cfg File has changed; update file message
-          memcpy(listCfgFiles [fileIndex].fileContent, file, size);
-          listCfgFiles [fileIndex].changed = true;
-        }
-      }
-    }
+	if (size > 0)
+	{
+	  if (isInitialDecode)
+	  {
+		// Fill file message with decoded data
+		memcpy(listCfgFiles[fileIndex].fileContent, file, size);
+	  }
+	  else
+	  {
+		// Compares current message to the new decoded message
+		if (memcmp(listCfgFiles[fileIndex].fileContent, file, size) != 0)
+		{
+		  // Cfg File has changed; update file message
+		  memcpy(listCfgFiles[fileIndex].fileContent, file, size);
+		  listCfgFiles[fileIndex].changed = true;
+		}
+	  }
+	}
 
-    vPortFree(file);
-    file = NULL;
+	vPortFree(file);
+	file = NULL;
   }
 
 }
 
 
-static bool CfgFilesEncode(uint16_t fileIndex, void *fileDataBuffer, size_t *fileSize, bool setDefaultValues)
+static bool CfgFilesEncode(uint16_t fileIndex, void *fileDataBuffer,
+	size_t *fileSize, bool setDefaultValues)
 {
 
   switch (fileIndex)
   {
-    case MAP_FILE_IDX:
+  case MAP_FILE_IDX:
 
-      TModbusMap *modbusFile = (TModbusMap *) listCfgFiles[fileIndex].fileContent;
+	TModbusMap *modbusFile = (TModbusMap*) listCfgFiles[fileIndex].fileContent;
 
-       if (setDefaultValues)
-       {
-         CreateDefaultModbusMap(fileDataBuffer, modbusFile);
+	if (setDefaultValues)
+	{
+	  CreateDefaultModbusMap(fileDataBuffer, modbusFile);
 
-       }else {
+	}
+	else
+	{
 
-         memcpy(fileDataBuffer, modbusFile, sizeof(TModbusMap));
-       }
+	  memcpy(fileDataBuffer, modbusFile, sizeof(TModbusMap));
+	}
 
-       *fileSize = sizeof(TModbusMap);
+	*fileSize = sizeof(TModbusMap);
 
-       return true;
+	return true;
 
-      break;
+	break;
 
-    case COMM_FILE_IDX:
+  case COMM_FILE_IDX:
 
-      break;
+	break;
 
-    case BOOT_FILE_IDX:
+  case BOOT_FILE_IDX:
 
-      break;
+	break;
 
-    default:
+  case LOG_FILE_IDX:
+
+	Log_config *logConfig = (Log_config*) listCfgFiles[fileIndex].fileContent;
+
+	if (setDefaultValues)
+	{
+	  memset(logConfig, 0, sizeof(Log_config));
+
+	 logConfig->enable = true;
+	 logConfig->logList_count = 0;
+
+	}
+	else
+	{
+
+	  memcpy(fileDataBuffer, logConfig, sizeof(Log_config));
+	}
+
+	*fileSize = sizeof(Log_config);
+	break;
+
+  default:
 
   }
 
- return false;
+  return false;
 }
 
 
@@ -246,6 +278,9 @@ void CfgFilesInit()
   SetListCfgFile(MAP_FILE_IDX,  MODBUS_MAP_FILE_PATH,  MAP_DIR_PATH,   &modbusMapFile);
   SetListCfgFile(COMM_FILE_IDX, COMM_FILE,             CFG_DIR_PATH,   NULL);
   SetListCfgFile(BOOT_FILE_IDX, BOOT_FILE,             BOOT_DIR_PATH,  NULL);
+  SetListCfgFile(LOG_FILE_IDX,  LOG_FILE_CONFIG,       MAP_DIR_PATH,   &logConfigFile);
+
+
   //------------------------------------------------------------------------------------
 
   for (int i = 0; i < TOTAL_CFG_FILES; i ++)

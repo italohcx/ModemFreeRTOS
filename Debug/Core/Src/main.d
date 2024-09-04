@@ -101,12 +101,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h \
- ../Core/Inc/cfg_files.h ../Core/Inc/FileSystemAPI.h \
+ ../Core/Inc/logger.h ../Core/Inc/cfg_files.h ../Core/Inc/FileSystemAPI.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h \
- ../Core/Inc/AdapterSSD1306.h
+ ../Core/Inc/AdapterSSD1306.h ../Core/Inc/logger.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -215,6 +215,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h:
+../Core/Inc/logger.h:
 ../Core/Inc/cfg_files.h:
 ../Core/Inc/FileSystemAPI.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:
@@ -222,3 +223,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h:
 ../Core/Inc/AdapterSSD1306.h:
+../Core/Inc/logger.h:

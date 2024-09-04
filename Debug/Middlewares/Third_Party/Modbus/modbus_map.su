@@ -4,4 +4,4 @@
 ../Middlewares/Third_Party/Modbus/modbus_map.c:162:10:GetAddrHoldingRegister	24	static
 ../Middlewares/Third_Party/Modbus/modbus_map.c:177:9:SeparaMensagensMODBUS	24	static
 ../Middlewares/Third_Party/Modbus/modbus_map.c:213:6:CreateDefaultModbusMap	32	static
-../Middlewares/Third_Party/Modbus/modbus_map.c:241:6:ModbusInit	4	static
+../Middlewares/Third_Party/Modbus/modbus_map.c:243:6:ModbusInit	4	static

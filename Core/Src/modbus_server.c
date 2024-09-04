@@ -30,7 +30,7 @@
 osThreadId modbusTcpServerTaskHandle;
 uint32_t bytesTx = 0;
 uint32_t bytesRx = 0;
-
+Log_t log_notify;
 //#define LOG(...)
 #define LOG(fmt, ...) printf(fmt "\r\n", ##__VA_ARGS__)
 
@@ -114,14 +114,15 @@ static uint8_t ModbusHandleConnection(struct netconn *connfd)
 				netbuf_copy(inbuf, recvBuffer, sizeof(recvBuffer));
 				uint16_t buffer_len = netbuf_len(inbuf);
 
-				LOG("Received %u bytes", buffer_len);
+				Log_print(log_notify, Log_level_info, "Received %u bytes", buffer_len);
+
 
 				bytesRx = bytesRx + buffer_len;
 
 				uint16_t response_len = InterpreterMODBUS(recvBuffer, buffer_len);
 				netconn_write(connfd, recvBuffer, response_len, NETCONN_COPY);
 
-			    LOG("Send %u bytes", response_len);
+			    Log_print(log_notify, Log_level_info, "Send %u bytes", response_len);
 
 				bytesTx = bytesTx + response_len;
 
@@ -202,7 +203,9 @@ void ModbusTcpSeverTask(void const *argument)
 		return;
 	}
 
-	 LOG("TCP server listening on port %d", MODBUS_SERVER_TCP_PORT);
+
+	Log_print(log_notify, Log_level_info, "TCP server listening on port: %d", MODBUS_SERVER_TCP_PORT);
+
 
 	 ModbusStatusInfo(MODBUS_CLOSED);
 
@@ -253,6 +256,13 @@ void ModbusTcpSeverTask(void const *argument)
 
 void ModbusServerInit()
 {
+
+  if (!Log_init (&log_notify, NOTIFY_LOGNAME, NOTIFY_LOGLEVEL_DEFAULT))
+   {
+     printf ("Failed to initialize Notify log "NOTIFY_LOGNAME""Log_newLine);
+   }
+
+
 	/* definition and creation of tcpServerTask */
 	osThreadDef(tcpServerTask, ModbusTcpSeverTask, osPriorityBelowNormal, 0, MODBUS_SERVER_TASK_STACK_SIZE);
 	modbusTcpServerTaskHandle = osThreadCreate(osThread(tcpServerTask), NULL);

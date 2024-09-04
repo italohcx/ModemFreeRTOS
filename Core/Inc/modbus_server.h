@@ -13,6 +13,11 @@
 #include "sockets.h"
 #include "stdbool.h"
 #include "api.h"
+#include "logger.h"
+
+#define NOTIFY_LOGNAME                   "MbServer"
+#define NOTIFY_LOGLEVEL_DEFAULT          Log_level_trace
+
 
 enum
 {

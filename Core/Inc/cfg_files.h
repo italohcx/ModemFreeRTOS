@@ -14,11 +14,12 @@
 #include "cmsis_os.h"
 #include "FileSystemAPI.h"
 #include "modbus_map.h"
+#include "logger.h"
 
 #define MAP_DIR_PATH       FILESYSTEM_FOLDER_MAP"/"
 #define CFG_DIR_PATH       FILESYSTEM_FOLDER_CONFIG"/"
 #define BOOT_DIR_PATH      FILESYSTEM_FOLDER_BOOTLOADER"/"
-#define TOTAL_CFG_FILES    (3)
+#define TOTAL_CFG_FILES    (4)
 
 #define MAX_SIZE_FILE_NAME   32
 #define MAX_SIZE_DIR_PATH    8
@@ -43,7 +44,7 @@ typedef enum CfgFileIndex
   MAP_FILE_IDX = 0,
   COMM_FILE_IDX,
   BOOT_FILE_IDX,
-
+  LOG_FILE_IDX
 } TCfgFileIndex;
 
 
@@ -60,6 +61,7 @@ typedef struct _CFG_FILE
 
 
 extern TModbusMap modbusMapFile;
+extern Log_config logConfigFile;
 
 bool CfgFiles_UpdateCfgFileByIndex(uint16_t fileIndex, bool setDefaultValues);
 

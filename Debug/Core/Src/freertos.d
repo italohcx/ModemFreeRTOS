@@ -78,7 +78,8 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h \
- ../Core/Inc/AdapterSSD1306.h ../Core/Inc/modbus_server.h
+ ../Core/Inc/AdapterSSD1306.h ../Core/Inc/modbus_server.h \
+ ../Core/Inc/logger.h ../Core/Inc/logger.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -161,3 +162,5 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h:
 ../Core/Inc/AdapterSSD1306.h:
 ../Core/Inc/modbus_server.h:
+../Core/Inc/logger.h:
+../Core/Inc/logger.h:

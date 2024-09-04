@@ -80,7 +80,8 @@ LWIP/Target/ethernetif.o: ../LWIP/Target/ethernetif.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip4.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/etharp.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/ethip6.h \
- ../LWIP/Target/ethernetif.h ../Drivers/BSP/Components/dp83848/dp83848.h \
+ ../LWIP/Target/ethernetif.h \
+ /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Drivers/BSP/Components/dp83848/dp83848.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -165,5 +166,5 @@ LWIP/Target/ethernetif.o: ../LWIP/Target/ethernetif.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/etharp.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/ethip6.h:
 ../LWIP/Target/ethernetif.h:
-../Drivers/BSP/Components/dp83848/dp83848.h:
+/home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Drivers/BSP/Components/dp83848/dp83848.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h:

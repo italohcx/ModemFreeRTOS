@@ -33,7 +33,8 @@
 #include "cfg_files.h"
 #include "ssd1306.h"
 #include "AdapterSSD1306.h"
-#include "cfg_files.h"
+#include "logger.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -111,8 +112,9 @@ int main(void)
   FileSystemInit();
   CfgFilesInit();
   ModbusInit();
-  AdapterSSD1306_Init();
+  Log_initModule();
 
+  AdapterSSD1306_Init();
 
   /* USER CODE END 2 */
 

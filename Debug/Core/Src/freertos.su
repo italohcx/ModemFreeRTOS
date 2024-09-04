@@ -1,6 +1,6 @@
-../Core/Src/freertos.c:84:6:vApplicationGetIdleTaskMemory	24	static
-../Core/Src/freertos.c:97:6:vApplicationGetTimerTaskMemory	24	static
-../Core/Src/freertos.c:111:6:MX_FREERTOS_Init	120	static
-../Core/Src/freertos.c:169:6:EthernetStatusTask	280	static
-../Core/Src/freertos.c:213:6:ButtonsTask	24	static
-../Core/Src/freertos.c:271:6:LedsTask	32	static
+../Core/Src/freertos.c:85:6:vApplicationGetIdleTaskMemory	24	static
+../Core/Src/freertos.c:98:6:vApplicationGetTimerTaskMemory	24	static
+../Core/Src/freertos.c:112:6:MX_FREERTOS_Init	120	static
+../Core/Src/freertos.c:171:6:EthernetStatusTask	280	static
+../Core/Src/freertos.c:215:6:ButtonsTask	24	static
+../Core/Src/freertos.c:273:6:LedsTask	32	static
