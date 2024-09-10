@@ -34,6 +34,7 @@
 #include "ssd1306.h"
 #include "AdapterSSD1306.h"
 #include "logger.h"
+#include "sntp_client.h"
 
 /* USER CODE END Includes */
 
@@ -64,7 +65,6 @@ uint16_t initTimeou = 0;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
-
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -105,8 +105,6 @@ int main(void)
   MX_SPI2_Init();
   MX_USART1_UART_Init();
   MX_I2C1_Init();
-
-
   /* USER CODE BEGIN 2 */
   HorusIhmInit();
   FileSystemInit();
@@ -115,6 +113,10 @@ int main(void)
   Log_initModule();
 
   AdapterSSD1306_Init();
+
+  //SntpClientInit();
+
+  SntpClientInit();
 
   /* USER CODE END 2 */
 

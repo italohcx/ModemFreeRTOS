@@ -144,11 +144,9 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(buttonsTask, ButtonsTask, osPriorityBelowNormal, 0, 1024);
   buttonsTaskHandle = osThreadCreate(osThread(buttonsTask), NULL);
 
-
-
   /* definition and creation of ledsTask */
   osThreadDef(ledsTask, LedsTask, osPriorityIdle, 0, 512);
-  ledsTaskHandle = osThreadCreate(osThread(ledsTask),(void*) operationMode);
+  ledsTaskHandle = osThreadCreate(osThread(ledsTask), (void*) operationMode);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -270,7 +268,7 @@ void ButtonsTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_LedsTask */
-void LedsTask(void const *argument)
+void LedsTask(void const * argument)
 {
   /* USER CODE BEGIN LedsTask */
 
