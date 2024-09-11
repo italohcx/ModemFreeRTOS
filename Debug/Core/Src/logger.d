@@ -1,5 +1,6 @@
 Core/Src/logger.o: ../Core/Src/logger.c ../Core/Inc/logger.h \
- ../Core/Inc/version.h ../Core/Inc/cfg_files.h \
+ ../Core/Inc/ptr.h ../Core/Inc/utils.h ../Core/Inc/version.h \
+ ../Core/Inc/cfg_files.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -51,13 +52,17 @@ Core/Src/logger.o: ../Core/Src/logger.c ../Core/Inc/logger.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h \
- ../Core/Inc/logger.h ../Core/Inc/ptr.h ../Core/Inc/utils.h
+ ../Core/Inc/logger.h ../Core/Inc/ptr.h ../Core/Inc/datetime.h
 ../Core/Inc/logger.h:
+../Core/Inc/ptr.h:
+../Core/Inc/utils.h:
 ../Core/Inc/version.h:
 ../Core/Inc/cfg_files.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
@@ -112,6 +117,8 @@ Core/Src/logger.o: ../Core/Src/logger.c ../Core/Inc/logger.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
@@ -119,4 +126,4 @@ Core/Src/logger.o: ../Core/Src/logger.c ../Core/Inc/logger.h \
 /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:
 ../Core/Inc/logger.h:
 ../Core/Inc/ptr.h:
-../Core/Inc/utils.h:
+../Core/Inc/datetime.h:

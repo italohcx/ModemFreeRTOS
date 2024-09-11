@@ -5,6 +5,6 @@
 ../Core/Src/cfg_files.c:116:13:SetListCfgFile	2
 ../Core/Src/cfg_files.c:133:13:CfgFilesDecodeFiles	7
 ../Core/Src/cfg_files.c:197:13:CfgFilesEncode	5
-../Core/Src/cfg_files.c:268:6:CfgFilesInit	11
-../Core/Src/cfg_files.c:370:6:CfgFiles_UpdateCfgFileByIndex	5
+../Core/Src/cfg_files.c:268:6:CfgFilesInit	8
+../Core/Src/cfg_files.c:370:6:CfgFiles_UpdateCfgFileByIndex	4
 ../Core/Src/cfg_files.c:416:6:CfgFiles_RestoreFactoryDefault	2

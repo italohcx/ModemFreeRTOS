@@ -1,6 +1,6 @@
 ../Core/Src/freertos.c:85:6:vApplicationGetIdleTaskMemory	1
 ../Core/Src/freertos.c:98:6:vApplicationGetTimerTaskMemory	1
 ../Core/Src/freertos.c:112:6:MX_FREERTOS_Init	1
-../Core/Src/freertos.c:171:6:EthernetStatusTask	5
-../Core/Src/freertos.c:215:6:ButtonsTask	5
-../Core/Src/freertos.c:273:6:LedsTask	7
+../Core/Src/freertos.c:169:6:EthernetStatusTask	5
+../Core/Src/freertos.c:213:6:ButtonsTask	5
+../Core/Src/freertos.c:271:6:LedsTask	7

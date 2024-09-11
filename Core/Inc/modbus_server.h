@@ -15,7 +15,7 @@
 #include "api.h"
 #include "logger.h"
 
-#define MB_SERVER_LOGNAME                   "MbServer"
+#define MB_SERVER_LOGNAME                   "cfgserver"
 #define MB_SERVER_LOGLEVEL_DEFAULT          Log_level_trace
 
 

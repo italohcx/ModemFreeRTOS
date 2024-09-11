@@ -27,6 +27,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
@@ -78,18 +80,13 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/etharp.h \
  ../Middlewares/Third_Party/LwIP/src/include/netif/ethernet.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/udp.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/ip.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/udp.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/sys.h \
  ../Middlewares/Third_Party/LwIP/system/arch/sys_arch.h \
  ../LWIP/Target/ethernetif.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
- ../Core/Inc/spi.h ../Core/Inc/usart.h ../Core/Inc/gpio.h \
- ../Core/Inc/FileSystemAPI.h \
+ ../Core/Inc/rtc.h ../Core/Inc/spi.h ../Core/Inc/usart.h \
+ ../Core/Inc/gpio.h ../Core/Inc/FileSystemAPI.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/LittleFs/lfs_util.h \
@@ -101,12 +98,14 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h \
- ../Core/Inc/logger.h ../Core/Inc/cfg_files.h ../Core/Inc/FileSystemAPI.h \
+ ../Core/Inc/logger.h ../Core/Inc/ptr.h ../Core/Inc/utils.h \
+ ../Core/Inc/cfg_files.h ../Core/Inc/FileSystemAPI.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_conf.h \
  /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h \
- ../Core/Inc/AdapterSSD1306.h ../Core/Inc/logger.h
+ ../Core/Inc/AdapterSSD1306.h ../Core/Inc/logger.h \
+ ../Core/Inc/sntp_client.h ../Core/Inc/datetime.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -136,6 +135,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
@@ -189,16 +190,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/etharp.h:
 ../Middlewares/Third_Party/LwIP/src/include/netif/ethernet.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/udp.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/ip.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/prot/udp.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/sys.h:
 ../Middlewares/Third_Party/LwIP/system/arch/sys_arch.h:
 ../LWIP/Target/ethernetif.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h:
+../Core/Inc/rtc.h:
 ../Core/Inc/spi.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
@@ -216,6 +213,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h:
 ../Core/Inc/logger.h:
+../Core/Inc/ptr.h:
+../Core/Inc/utils.h:
 ../Core/Inc/cfg_files.h:
 ../Core/Inc/FileSystemAPI.h:
 /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/Modbus/modbus_map.h:
@@ -224,3 +223,5 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 /home/italo/STM32CubeIDE/workspace_1.14.0_2/STM32F4_BOARD/Middlewares/Third_Party/ssd1306/ssd1306_fonts.h:
 ../Core/Inc/AdapterSSD1306.h:
 ../Core/Inc/logger.h:
+../Core/Inc/sntp_client.h:
+../Core/Inc/datetime.h:

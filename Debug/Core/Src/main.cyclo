@@ -1,7 +1,7 @@
-../Core/Src/main.c:81:5:main	1
-../Core/Src/main.c:143:6:SystemClock_Config	3
-../Core/Src/main.c:186:5:__io_putchar	2
-../Core/Src/main.c:198:6:HorusOperationMode	5
-../Core/Src/main.c:224:6:HorusIhmInit	6
-../Core/Src/main.c:287:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:305:6:Error_Handler	1
+../Core/Src/main.c:84:5:main	1
+../Core/Src/main.c:147:6:SystemClock_Config	3
+../Core/Src/main.c:191:5:__io_putchar	2
+../Core/Src/main.c:203:6:HorusOperationMode	5
+../Core/Src/main.c:229:6:HorusIhmInit	6
+../Core/Src/main.c:292:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:310:6:Error_Handler	1

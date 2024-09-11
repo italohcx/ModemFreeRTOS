@@ -10,15 +10,13 @@
 #include "cmsis_os.h"
 #include <sys/time.h>
 #include <stdio.h>
-#include "sntp_client.h"
-
 #include "lwip/udp.h"
 #include "lwip/tcp.h"
 #include "sockets.h"
 #include "api.h"
+#include "datetime.h"
 
-
-#define SNTP_CLIENT_TASK_STACK_SIZE  (2048)
+#define SNTP_CLIENT_TASK_STACK_SIZE  (512)
 
 osThreadId sntpClientTaskHandle;
 
@@ -104,6 +102,9 @@ void ntp_task(void *pvParameters)
 				(timeinfo.tm_year + 1900), (timeinfo.tm_mon + 1),
 				 timeinfo.tm_mday, timeinfo.tm_hour, timeinfo.tm_min,
 				 timeinfo.tm_sec);
+
+
+			DateTimeSetTm(&timeinfo);
 
 			/* Free the received buffer */
 			netbuf_delete(rxbuf);

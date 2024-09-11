@@ -15,11 +15,11 @@
 #define BOOT_FILE            "boot.bin"
 #define LOG_FILE_CONFIG      "log-config.bin"
 
-//#define LOG(...)
-#define LOG(fmt, ...) printf(fmt "\r\n", ##__VA_ARGS__)
+#define LOG(...)
+//#define LOG(fmt, ...) printf(fmt "\r\n", ##__VA_ARGS__)
 
-//#define LOG2(...)
-#define LOG2 LOG
+#define LOG2(...)
+//#define LOG2 LOG
 
 
 TModbusMap modbusMapFile;

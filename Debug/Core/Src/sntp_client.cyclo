@@ -1,0 +1,2 @@
+../Core/Src/sntp_client.c:24:6:ntp_task	7
+../Core/Src/sntp_client.c:145:8:SntpClientInit	1

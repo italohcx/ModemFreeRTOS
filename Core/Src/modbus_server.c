@@ -14,8 +14,7 @@
 #include "lwip/tcp.h"
 #include "lwip/tcpip.h"
 
-
-#define MODBUS_SERVER_TASK_STACK_SIZE  (2048)
+#define MODBUS_SERVER_TASK_STACK_SIZE  (1024)
 #define MODBUS_SERVER_TCP_PORT         (22000)
 #define MODBUS_SERVER_KEEP_ALIVE       (true)
 #define MODBUS_SERVER_BUF_SIZE         (512)
@@ -257,9 +256,9 @@ void ModbusTcpSeverTask(void const *argument)
 void ModbusServerInit()
 {
 
-  if (!Log_init (&log_notify, NOTIFY_LOGNAME, NOTIFY_LOGLEVEL_DEFAULT))
+  if (!Log_init (&log_notify, MB_SERVER_LOGNAME, MB_SERVER_LOGLEVEL_DEFAULT))
    {
-     printf ("Failed to initialize Notify log "NOTIFY_LOGNAME""Log_newLine);
+     printf ("Failed to initialize Notify log "MB_SERVER_LOGNAME""Log_newLine);
    }
 
 

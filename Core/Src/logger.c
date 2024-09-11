@@ -10,12 +10,16 @@
 #include "version.h"
 #include "cfg_files.h"
 #include "ptr.h"
+#include "datetime.h"
+#include <string.h>
+
+
 
 Log_config *logConfig;
 #define LOG_QNT_TempVarToRead_LogConfig  5
 Log_config logConfig_tempRead[LOG_QNT_TempVarToRead_LogConfig];
  bool logFilesWasRead = false;
-char* (*Log_funcToGetDateTime)();
+ char * (*Log_funcToGetDateTime) ();
 
  Log_t log_log;
 #define LOG_LOGNAME                   "log"
@@ -335,10 +339,16 @@ char* Log_returnLevelString(Log_level_t level)
 
   void Log_printVersion()
   {
+	struct tm timeinfo = {0};
+
+	DateTimeGetTm(&timeinfo );
+
 	printf(Log_newLine"HorusGateway"Log_newLine);
 	printf("  Firmware v.%d.%d%d"Log_newLine, FW_MAJOR_VERSION,
 		FW_MINOR_VERSION, FW_BUILD_VERSION);
 	printf("  Build %s %s"Log_newLine, __DATE__, __TIME__);
+
+	printf("  Start firmware %s \r\n", DateTimeGetString());
 
   }
 
@@ -350,23 +360,25 @@ char* Log_returnLevelString(Log_level_t level)
 
   /*####################### List Log Functions #######################*/
 
-  //void Log_initModule(char* (*funcToGetDateTime)())
-  void Log_initModule()
-  {
-	memset(&logConfig, 0, sizeof(logConfig));
+  void Log_initModule (char *(*funcToGetDateTime) ())
+
+{
+
+ Log_funcToGetDateTime = funcToGetDateTime;
+
+  memset(&logConfig, 0, sizeof(logConfig));
 //	Log_funcToGetDateTime = funcToGetDateTime;
 
-	Log_init(&log_log, LOG_LOGNAME, LOG_LOGLEVEL_DEFAULT);
+  Log_init(&log_log, LOG_LOGNAME, LOG_LOGLEVEL_DEFAULT);
 
-	//  Logger_CLI_initCommands ();
-	Log_printLogo();
-	Log_printVersion();
+  //  Logger_CLI_initCommands ();
+  Log_printLogo();
+  Log_printVersion();
 
-	logConfig = &logConfigFile;
-	Log_printAllLogsOnTheList();
+  logConfig = &logConfigFile;
+  Log_printAllLogsOnTheList();
 
-
-  }
+}
 
   void Log_restoreConfigFile()
   {

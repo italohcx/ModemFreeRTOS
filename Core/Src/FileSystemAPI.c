@@ -26,9 +26,9 @@ typedef long             BaseType_t;
  * Variables
  ******************************************************************************/
 
-#define LOG(fmt, ...) printf(fmt "\r\n", ##__VA_ARGS__)
+//#define LOG(fmt, ...) printf(fmt "\r\n", ##__VA_ARGS__)
 
-//#define LOG2(...)
+#define LOG(...)
 #define LOG2 LOG
 
 
@@ -459,18 +459,18 @@ int list_dir()
 	int err = lfs_dir_open(&lfs, &dir, path);
 	if (err)
 	{
-		printf("Erro ao abrir o diretório: %d\r\n", err);
+		LOG("Erro ao abrir o diretório: %d\r\n", err);
 	}
 	else
 	{
-		printf("Listando diretórios em: %s \r\n", path);
+		LOG("Listando diretórios em: %s \r\n", path);
 
 		// Leia as entradas no diretório
 		while (lfs_dir_read(&lfs, &dir, &info) > 0)
 		{
 			if (info.type == LFS_TYPE_DIR)
 			{
-				printf("%s \r\n", info.name);
+				LOG("%s \r\n", info.name);
 			}
 		}
 

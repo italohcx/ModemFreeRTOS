@@ -12,10 +12,14 @@
 #include "stdbool.h"
 #include "stddef.h"
 #include "stdio.h"
+#include "ptr.h"
+#include "utils.h"
 
 #define Log_newLine       "\r\n"
 
 #define LOG_ENABLE      1
+
+extern char * (*Log_funcToGetDateTime) ();
 
 #if !LOG_ENABLE
 #  undef print
@@ -45,7 +49,8 @@
         (levelToBeConsidered < Log_level_disable) && \
         (StructLogToBePrinted.level <= levelToBeConsidered)) \
     {\
-      printf("%s %s: %s[%d] " fmt_s "" Log_newLine,\
+      printf("%s %s %s: %s[%d] " fmt_s "" Log_newLine,\
+    	    Log_funcToGetDateTime(),\
             (char *)StructLogToBePrinted.name,\
             (char *)Log_returnLevelString(levelToBeConsidered),\
             __func__, __LINE__, ##__VA_ARGS__); \
@@ -175,8 +180,9 @@ typedef struct _Log_config {
   * is log module
   * @param funcToGetDateTime function the get date time to print on log
   */
- //void Log_initModule (char *(*funcToGetDateTime) ());
- void Log_initModule ();
+ void Log_initModule (char *(*funcToGetDateTime) ());
+
+
  /**
   * @brief Restore configuration from file
   */

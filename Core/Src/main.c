@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "i2c.h"
 #include "lwip.h"
+#include "rtc.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
@@ -35,6 +36,7 @@
 #include "AdapterSSD1306.h"
 #include "logger.h"
 #include "sntp_client.h"
+#include "datetime.h"
 
 /* USER CODE END Includes */
 
@@ -67,6 +69,7 @@ void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -84,7 +87,8 @@ int main(void)
 
   /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+  /* MCU Configuration----
+   * ----------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -105,18 +109,16 @@ int main(void)
   MX_SPI2_Init();
   MX_USART1_UART_Init();
   MX_I2C1_Init();
+  MX_RTC_Init();
+
   /* USER CODE BEGIN 2 */
   HorusIhmInit();
   FileSystemInit();
   CfgFilesInit();
   ModbusInit();
-  Log_initModule();
-
+  Log_initModule(DateTimeGetString);
   AdapterSSD1306_Init();
-
-  //SntpClientInit();
-
-  SntpClientInit();
+ // SntpClientInit();
 
   /* USER CODE END 2 */
 
@@ -155,8 +157,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 25;

@@ -1,0 +1,5 @@
+../Core/Src/rtc.c:30:6:MX_RTC_Init	2
+../Core/Src/rtc.c:60:6:HAL_RTC_MspInit	3
+../Core/Src/rtc.c:87:6:HAL_RTC_MspDeInit	2
+../Core/Src/rtc.c:104:10:getCurrentTimeRTC	1
+../Core/Src/rtc.c:140:6:setCurrentTimeRTC	2
