@@ -3,5 +3,5 @@
 ../Core/Src/modbus_server.c:76:13:Modbus_infoPacket	1
 ../Core/Src/modbus_server.c:92:16:ModbusHandleConnection	8
 ../Core/Src/modbus_server.c:154:6:Modbus_activateTcpKeepAlive	4
-../Core/Src/modbus_server.c:169:6:ModbusTcpSeverTask	11
-../Core/Src/modbus_server.c:256:6:ModbusServerInit	2
+../Core/Src/modbus_server.c:169:6:ModbusTcpSeverTask	21
+../Core/Src/modbus_server.c:254:6:ModbusServerInit	2

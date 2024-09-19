@@ -113,7 +113,7 @@ static uint8_t ModbusHandleConnection(struct netconn *connfd)
 				netbuf_copy(inbuf, recvBuffer, sizeof(recvBuffer));
 				uint16_t buffer_len = netbuf_len(inbuf);
 
-				Log_print(log_notify, Log_level_info, "Received %u bytes", buffer_len);
+				Log_print(log_notify, Log_level_trace, "Received %u bytes", buffer_len);
 
 
 				bytesRx = bytesRx + buffer_len;
@@ -121,7 +121,7 @@ static uint8_t ModbusHandleConnection(struct netconn *connfd)
 				uint16_t response_len = InterpreterMODBUS(recvBuffer, buffer_len);
 				netconn_write(connfd, recvBuffer, response_len, NETCONN_COPY);
 
-			    Log_print(log_notify, Log_level_info, "Send %u bytes", response_len);
+			    Log_print(log_notify, Log_level_trace, "Send %u bytes", response_len);
 
 				bytesTx = bytesTx + response_len;
 
@@ -180,7 +180,7 @@ void ModbusTcpSeverTask(void const *argument)
 	if (conn == NULL)
 	{
 		/* Handle error */
-	    LOG("Failed to create TCP connection handle");
+	    Log_print(log_notify, Log_level_error, "Failed to create TCP connection handle");
 		return;
 	}
 
@@ -188,7 +188,7 @@ void ModbusTcpSeverTask(void const *argument)
 	if (netconn_bind(conn, IP_ADDR_ANY, MODBUS_SERVER_TCP_PORT) != ERR_OK)
 	{
 		/* Handle error */
-	    LOG("Failed to bind to port %d", MODBUS_SERVER_TCP_PORT);
+	    Log_print(log_notify, Log_level_error, "Failed to bind to port %d", MODBUS_SERVER_TCP_PORT);
 		netconn_delete(conn);
 		return;
 	}
@@ -197,14 +197,12 @@ void ModbusTcpSeverTask(void const *argument)
 	if (netconn_listen(conn) != ERR_OK)
 	{
 		/* Handle error */
-	    LOG("Failed to put the connection into LISTEN state");
+	    Log_print(log_notify, Log_level_error, "Failed to put the connection into LISTEN state");
 		netconn_delete(conn);
 		return;
 	}
 
-
-	Log_print(log_notify, Log_level_info, "TCP server listening on port: %d", MODBUS_SERVER_TCP_PORT);
-
+	 Log_print(log_notify, Log_level_info, "Server listening on port: %d", MODBUS_SERVER_TCP_PORT);
 
 	 ModbusStatusInfo(MODBUS_CLOSED);
 
@@ -219,7 +217,7 @@ void ModbusTcpSeverTask(void const *argument)
 				if (newconn != NULL)
 				{
 					i = MODBUS_OPEN;
-
+					Log_print(log_notify, Log_level_debug, "Client connected");
 					 ModbusStatusInfo(MODBUS_OPEN);
 					/* Set keepalive options if enabled */
 					if (MODBUS_SERVER_KEEP_ALIVE)
@@ -242,7 +240,7 @@ void ModbusTcpSeverTask(void const *argument)
 				AdapterSSD1306_Refresh(PAGE_1, LINE_2);
 				ModbusStatusInfo(MODBUS_CLOSED);
 				Modbus_infoPacket();
-				LOG("Connection closed");
+				Log_print(log_notify, Log_level_debug, "Client disconnected");
 			}
 		}
 
@@ -260,8 +258,6 @@ void ModbusServerInit()
    {
      printf ("Failed to initialize Notify log "MB_SERVER_LOGNAME""Log_newLine);
    }
-
-
 	/* definition and creation of tcpServerTask */
 	osThreadDef(tcpServerTask, ModbusTcpSeverTask, osPriorityBelowNormal, 0, MODBUS_SERVER_TASK_STACK_SIZE);
 	modbusTcpServerTaskHandle = osThreadCreate(osThread(tcpServerTask), NULL);

@@ -1,8 +1,5 @@
 Core/Src/sntp_client.o: ../Core/Src/sntp_client.c \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/sntp.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/sntp_opts.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
- ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \
+ ../Core/Inc/sntp_client.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -37,6 +34,10 @@ Core/Src/sntp_client.o: ../Core/Src/sntp_client.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/sntp.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/sntp_opts.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
+ ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h \
  ../Middlewares/Third_Party/LwIP/system/arch/cc.h \
@@ -91,11 +92,9 @@ Core/Src/sntp_client.o: ../Core/Src/sntp_client.c \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/netbuf.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/sys.h \
  ../Middlewares/Third_Party/LwIP/system/arch/sys_arch.h \
- ../Core/Inc/datetime.h
-../Middlewares/Third_Party/LwIP/src/include/lwip/apps/sntp.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/apps/sntp_opts.h:
-../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
-../LWIP/Target/lwipopts.h:
+ ../Core/Inc/datetime.h ../Core/Inc/logger.h ../Core/Inc/ptr.h \
+ ../Core/Inc/utils.h
+../Core/Inc/sntp_client.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -131,6 +130,11 @@ Core/Src/sntp_client.o: ../Core/Src/sntp_client.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/apps/sntp.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/apps/sntp_opts.h:
+../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
+../LWIP/Target/lwipopts.h:
+../Core/Inc/main.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h:
 ../Middlewares/Third_Party/LwIP/system/arch/cc.h:
@@ -186,3 +190,6 @@ Core/Src/sntp_client.o: ../Core/Src/sntp_client.c \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/sys.h:
 ../Middlewares/Third_Party/LwIP/system/arch/sys_arch.h:
 ../Core/Inc/datetime.h:
+../Core/Inc/logger.h:
+../Core/Inc/ptr.h:
+../Core/Inc/utils.h:

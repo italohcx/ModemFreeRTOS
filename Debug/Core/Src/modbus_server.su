@@ -4,4 +4,4 @@
 ../Core/Src/modbus_server.c:92:16:ModbusHandleConnection	568	static
 ../Core/Src/modbus_server.c:154:6:Modbus_activateTcpKeepAlive	32	static
 ../Core/Src/modbus_server.c:169:6:ModbusTcpSeverTask	56	static
-../Core/Src/modbus_server.c:256:6:ModbusServerInit	48	static
+../Core/Src/modbus_server.c:254:6:ModbusServerInit	48	static

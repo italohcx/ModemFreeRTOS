@@ -1,2 +1,4 @@
-../Core/Src/sntp_client.c:24:6:ntp_task	7
-../Core/Src/sntp_client.c:145:8:SntpClientInit	1
+../Core/Src/sntp_client.c:27:7:SntpSendRequest	2
+../Core/Src/sntp_client.c:53:7:SntpRecevRequest	3
+../Core/Src/sntp_client.c:98:6:SntpClientTask	22
+../Core/Src/sntp_client.c:174:8:SntpClientInit	2

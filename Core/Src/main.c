@@ -115,10 +115,10 @@ int main(void)
   HorusIhmInit();
   FileSystemInit();
   CfgFilesInit();
-  ModbusInit();
   Log_initModule(DateTimeGetString);
+  ModbusInit();
   AdapterSSD1306_Init();
- // SntpClientInit();
+  SntpClientInit();
 
   /* USER CODE END 2 */
 

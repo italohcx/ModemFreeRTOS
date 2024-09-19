@@ -4,8 +4,7 @@
  *  Created on: Sep 4, 2024
  *      Author: italo
  */
-
-
+#include "sntp_client.h"
 #include "lwip/apps/sntp.h"
 #include "cmsis_os.h"
 #include <sys/time.h>
@@ -15,23 +14,94 @@
 #include "sockets.h"
 #include "api.h"
 #include "datetime.h"
+#include "logger.h"
 
-#define SNTP_CLIENT_TASK_STACK_SIZE  (512)
+#define SNTP_CLIENT_TASK_STACK_SIZE  (256)
+#define SNTP_SERVER_IP "200.160.7.186"
+#define SNTP_SERVER_PORT 123
 
 osThreadId sntpClientTaskHandle;
+Log_t log_sntp;
 
 
-void ntp_task(void *pvParameters)
-
+err_t SntpSendRequest(struct netconn *conn)
 {
-  uint8_t data[48] =  { 0 };
-  struct netconn *conn;
-  struct netbuf *buf, *rxbuf;
-  err_t err, recv_err;
-  ip_addr_t dest_addr;
-  uint16_t data_len;
+  uint8_t data[48] = { 0 };
+  err_t err;
+  struct netbuf *buf;
+  data[0] = 0x1B;
+
+  /* Create a new netbuf */
+  buf = netbuf_new();
+
+  if (buf != NULL)
+  {
+	/* Copy the data into the netbuf */
+	netbuf_ref(buf, data, sizeof(data));
+
+	/* Send the buffer to the connected UDP server */
+	err = netconn_send(conn, buf);
+
+	/* Free the buffer after sending */
+	netbuf_delete(buf);
+
+  }
+
+  return err;
+}
+
+err_t SntpRecevRequest(struct netconn *conn)
+{
+  uint8_t data[48] = { 0 };
   time_t timestamp = 0;
   struct tm timeinfo;
+  err_t recv_err;
+  struct netbuf *rxbuf;
+  uint16_t data_len;
+
+  /* Optionally, receive response */
+  recv_err = netconn_recv(conn, &rxbuf);
+  void *data_ptr;
+  netbuf_data(rxbuf, &data_ptr, &data_len);
+
+
+  /* Copy received data */
+  netbuf_copy(rxbuf, data, sizeof(data));
+
+  /* Extract the timestamp and convert to UNIX format */
+  timestamp = ntohl(*(u32_t *)&data[40]) - 2208988800U; // Subtract 70 years
+
+  /* Adjust timestamp to São Paulo timezone (UTC-3) */
+  timestamp -= 3 * 3600; // Subtract 3 hours
+
+  /* Convert UNIX timestamp to `tm` structure adjusted to local timezone */
+  localtime_r(&timestamp, &timeinfo);
+
+  Log_print(log_sntp, Log_level_trace, "TimeStamp: %d-%02d-%02d %02d:%02d:%02d",
+	  (timeinfo.tm_year + 1900), (timeinfo.tm_mon + 1), timeinfo.tm_mday,
+	  timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+
+  /* Set hardware RTC */
+  DateTimeSetTm(&timeinfo);
+
+  /* Free the received buffer */
+  netbuf_delete(rxbuf);
+
+  /*Free buffer*/
+  memset(data, 0x0, sizeof(data));
+
+  return recv_err;
+}
+
+
+
+void SntpClientTask(void *pvParameters)
+
+{
+  /*Delay before init */
+  osDelay(2000);
+  struct netconn *conn;
+  ip_addr_t dest_addr;
 
   /* Create a new connection identifier */
   conn = netconn_new(NETCONN_UDP);
@@ -39,76 +109,38 @@ void ntp_task(void *pvParameters)
   if (conn != NULL)
   {
 	/* Bind connection to the port 7 */
-	err = netconn_bind(conn, IP_ADDR_ANY, 7);
-
-	if (err == ERR_OK)
+	if (netconn_bind(conn, IP_ADDR_ANY, 7) == ERR_OK)
 	{
 	  /* The destination IP address of the server */
-	  IP_ADDR4(&dest_addr, 200, 160, 7, 186);
+	  ipaddr_aton(SNTP_SERVER_IP, &dest_addr);
 
-	  /* Infinite loop to send data every 10 seconds */
+	  //IP_ADDR4(&dest_addr, 200, 160, 7, 186);
 	  for (;;)
 	  {
-		data[0] = 0x1B;
-
-		/* Connect to the destination (server) at port 123 */
-		err = netconn_connect(conn, &dest_addr, 123);
-
-		if (err == ERR_OK)
+		/* Connect to the destination (server) */
+		if (netconn_connect(conn, &dest_addr, SNTP_SERVER_PORT) == ERR_OK)
 		{
-		  /* Create a new netbuf */
-		  buf = netbuf_new();
-		  if (buf != NULL)
+
+		  Log_print(log_sntp, Log_level_info, "Connected in server SNTP:%s Port:%d", SNTP_SERVER_IP,  SNTP_SERVER_PORT);
+
+		  /*Request TimeStamp from server*/
+		  if (SntpSendRequest(conn) == ERR_OK)
 		  {
-			/* Copy the data into the netbuf */
-			netbuf_ref(buf, data, sizeof(data));
-
-			/* Send the buffer to the connected UDP server */
-			err = netconn_send(conn, buf);
-			if (err == ERR_OK)
-			{
-			  printf("Buffer enviado com sucesso!\r\n");
-			}
-			else
-			{
-			  printf("Erro ao enviar o buffer: %d\r\n", err);
-			}
-
-			/* Free the buffer after sending */
-			netbuf_delete(buf);
+			Log_print(log_sntp, Log_level_debug, "Send server Timestamp request");
+		  }
+		  else
+		  {
+			Log_print(log_sntp, Log_level_error, "Error to send timeStamp request");
 		  }
 
-		  /* Optionally, receive response */
-		  recv_err = netconn_recv(conn, &rxbuf);
-
-		  if (recv_err == ERR_OK)
+		  /*Received TimeStamp from server*/
+		  if (SntpRecevRequest(conn) == ERR_OK)
 		  {
-			void *data_ptr;
-			netbuf_data(rxbuf, &data_ptr, &data_len);
-
-			/* Copy received data */
-			netbuf_copy(rxbuf, data, sizeof(data));
-
-			/* Extract the timestamp and convert to UNIX format */
-			timestamp = ntohl(*(u32_t *)&data[40]) - 2208988800U; // Subtract 70 years
-
-			/* Adjust timestamp to São Paulo timezone (UTC-3) */
-			timestamp -= 3 * 3600; // Subtract 3 hours
-
-			/* Convert UNIX timestamp to `tm` structure adjusted to local timezone */
-			localtime_r(&timestamp, &timeinfo);
-
-			printf("Hora atual: %d-%02d-%02d %02d:%02d:%02d\r\n",
-				(timeinfo.tm_year + 1900), (timeinfo.tm_mon + 1),
-				 timeinfo.tm_mday, timeinfo.tm_hour, timeinfo.tm_min,
-				 timeinfo.tm_sec);
-
-
-			DateTimeSetTm(&timeinfo);
-
-			/* Free the received buffer */
-			netbuf_delete(rxbuf);
-			memset(data, 0x0, sizeof(data));
+			Log_print(log_sntp, Log_level_debug, "Received server response");
+		  }
+		  else
+		  {
+			Log_print(log_sntp, Log_level_error, "Received server response error");
 		  }
 
 		  /* Disconnect the connection */
@@ -116,16 +148,16 @@ void ntp_task(void *pvParameters)
 		}
 		else
 		{
-		  printf("Erro ao conectar: %d\r\n", err);
+		  Log_print(log_sntp, Log_level_error, "Server connected error");
 		}
 
-		/* Wait for 10 seconds */
-		osDelay(10000);
+		/* Wait for 10 minutes */
+		osDelay(100000);
 	  }
 	}
 	else
 	{
-	  printf("Erro ao fazer o bind da conexão: %d\r\n", err);
+	  Log_print(log_sntp, Log_level_error, "Bind connect error");
 	}
 
 	/* Close the connection and free the netconn structure */
@@ -133,22 +165,28 @@ void ntp_task(void *pvParameters)
   }
   else
   {
-	printf("Erro ao criar a conexão.\r\n");
+	Log_print(log_sntp, Log_level_error, "Error to create connection");
   }
 }
 
 
 
-
-
-
   void SntpClientInit()
+{
+
+  if (!Log_init(&log_sntp, SNTP_CLIENT_LOGNAME, SNTP_CLIENT_LOGLEVEL_DEFAULT))
   {
 
-  	/* definition and creation of tcpServerTask */
-  	osThreadDef(sntpClientTask, ntp_task, osPriorityBelowNormal, 0, SNTP_CLIENT_TASK_STACK_SIZE);
-  	sntpClientTaskHandle = osThreadCreate(osThread(sntpClientTask), NULL);
+  printf ("Failed to initialize log "SNTP_CLIENT_LOGNAME""Log_newLine);
+
   }
+
+  /* definition and creation of tcpServerTask */
+  osThreadDef(sntpClientTask, SntpClientTask, osPriorityBelowNormal, 0,SNTP_CLIENT_TASK_STACK_SIZE);
+  sntpClientTaskHandle = osThreadCreate(osThread(sntpClientTask), NULL);
+
+
+}
 
 
 

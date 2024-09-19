@@ -1,2 +1,4 @@
-../Core/Src/sntp_client.c:24:6:ntp_task	184	static
-../Core/Src/sntp_client.c:145:8:SntpClientInit	48	static
+../Core/Src/sntp_client.c:27:7:SntpSendRequest	72	static
+../Core/Src/sntp_client.c:53:7:SntpRecevRequest	184	static
+../Core/Src/sntp_client.c:98:6:SntpClientTask	48	static
+../Core/Src/sntp_client.c:174:8:SntpClientInit	48	static
