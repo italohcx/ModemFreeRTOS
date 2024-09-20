@@ -12,7 +12,7 @@
 
 
 #define SNTP_CLIENT_LOGNAME                   "sntp"
-#define SNTP_CLIENT_LOGLEVEL_DEFAULT          Log_level_trace
+#define SNTP_CLIENT_LOGLEVEL_DEFAULT          Log_level_info
 
 void SntpClientInit();
 

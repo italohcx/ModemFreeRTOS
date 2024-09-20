@@ -24,7 +24,12 @@ osThreadId sntpClientTaskHandle;
 Log_t log_sntp;
 
 
-err_t SntpSendRequest(struct netconn *conn)
+/**
+ * @brief function send request timeStamp for npt server
+ * @param conn
+ * @return status
+ */
+static err_t SntpSendRequest(struct netconn *conn)
 {
   uint8_t data[48] = { 0 };
   err_t err;
@@ -50,7 +55,13 @@ err_t SntpSendRequest(struct netconn *conn)
   return err;
 }
 
-err_t SntpRecevRequest(struct netconn *conn)
+
+/**
+ * @brief function receive request timeStamp for NTP server
+ * @param conn
+ * @return status
+ */
+static err_t SntpRecevRequest(struct netconn *conn)
 {
   uint8_t data[48] = { 0 };
   time_t timestamp = 0;
@@ -94,8 +105,12 @@ err_t SntpRecevRequest(struct netconn *conn)
 }
 
 
+/**
+ * @brief Task ntp
+ * @param pvParameters
+ */
 
-void SntpClientTask(void *pvParameters)
+static void SntpClientTask(void *pvParameters)
 
 {
   /*Delay before init */
@@ -145,6 +160,7 @@ void SntpClientTask(void *pvParameters)
 
 		  /* Disconnect the connection */
 		  netconn_disconnect(conn);
+		  Log_print(log_sntp, Log_level_debug, "Disconnect from server");
 		}
 		else
 		{
@@ -170,7 +186,6 @@ void SntpClientTask(void *pvParameters)
 }
 
 
-
   void SntpClientInit()
 {
 
@@ -180,11 +195,9 @@ void SntpClientTask(void *pvParameters)
   printf ("Failed to initialize log "SNTP_CLIENT_LOGNAME""Log_newLine);
 
   }
-
-  /* definition and creation of tcpServerTask */
+  /* definition and creation of SntpClientTask */
   osThreadDef(sntpClientTask, SntpClientTask, osPriorityBelowNormal, 0,SNTP_CLIENT_TASK_STACK_SIZE);
   sntpClientTaskHandle = osThreadCreate(osThread(sntpClientTask), NULL);
-
 
 }
 
